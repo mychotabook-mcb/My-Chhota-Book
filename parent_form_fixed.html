@@ -7,47 +7,58 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #F7F4EF;
-    --surface: #FFFFFF;
-    --surface2: #F0EDE7;
-    --primary: #D45C2A;
-    --primary-light: #FAEEE7;
-    --primary-dark: #A8401A;
-    --accent: #2A7DD4;
-    --accent-light: #E7F0FA;
-    --green: #2A9D5C;
-    --green-light: #E7F5EE;
-    --text: #1A1410;
-    --text2: #6B5E52;
-    --text3: #A09285;
-    --border: rgba(100,80,60,0.12);
-    --border2: rgba(100,80,60,0.22);
+    --bg: #F7F4EF; --surface: #FFFFFF; --surface2: #F0EDE7;
+    --primary: #D45C2A; --primary-light: #FAEEE7; --primary-dark: #A8401A;
+    --accent: #2A7DD4; --accent-light: #E7F0FA;
+    --green: #2A9D5C; --green-light: #E7F5EE;
+    --text: #1A1410; --text2: #6B5E52; --text3: #A09285;
+    --border: rgba(100,80,60,0.12); --border2: rgba(100,80,60,0.22);
     --shadow: 0 2px 16px rgba(60,40,20,0.08);
-    --radius: 12px;
-    --radius-sm: 8px;
+    --radius: 12px; --radius-sm: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Noto Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  .app-header {
-    background: var(--primary);
-    padding: 1rem 1.25rem;
-    display: flex; align-items: center; gap: 12px;
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 12px rgba(180,60,20,0.18);
-  }
-  .app-header-logo {
-    width: 36px; height: 36px; background: rgba(255,255,255,0.2);
-    border-radius: 8px; display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
+  .app-header { background: var(--primary); padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(180,60,20,0.18); }
+  .app-header-logo { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
   .app-header-title { font-family: 'Baloo 2', sans-serif; font-size: 17px; font-weight: 700; color: white; line-height: 1.1; }
   .app-header-sub { font-size: 11px; color: rgba(255,255,255,0.75); }
+  .header-phone-badge { margin-left: auto; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 4px 10px; font-size: 12px; color: white; display: none; align-items: center; gap: 5px; }
+  .header-phone-badge.show { display: flex; }
 
   .progress-bar-wrap { background: rgba(0,0,0,0.15); height: 3px; }
   .progress-bar { height: 3px; background: white; transition: width 0.4s ease; }
 
   .container { max-width: 600px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+
+  /* LOGIN */
+  .login-screen { display: flex; flex-direction: column; align-items: center; padding: 2rem 0; }
+  .login-icon { width: 72px; height: 72px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 1.25rem; }
+  .login-title { font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; text-align: center; }
+  .login-sub { font-size: 13px; color: var(--text2); text-align: center; margin-bottom: 1.5rem; line-height: 1.6; max-width: 320px; }
+  .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; width: 100%; box-shadow: var(--shadow); }
+
+  .otp-row { display: flex; gap: 8px; }
+  .otp-row .input-field { flex: 1; }
+
+  .error-box { background: #FCEBEB; border: 1px solid #F5A5A5; border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; color: #A32D2D; margin-top: 10px; display: none; }
+  .error-box.show { display: block; }
+  .info-box { background: var(--green-light); border: 1px solid #A8D8BE; border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; color: var(--green); margin-top: 10px; display: none; }
+  .info-box.show { display: block; }
+
+  /* OTP digits */
+  .otp-digits { display: flex; gap: 8px; margin-top: 12px; justify-content: center; }
+  .otp-digit { width: 52px; height: 56px; text-align: center; font-size: 24px; font-weight: 700; border: 2px solid var(--border2); border-radius: var(--radius-sm); font-family: 'Baloo 2', sans-serif; outline: none; background: var(--surface); color: var(--text); transition: border-color 0.2s; }
+  .otp-digit:focus { border-color: var(--primary); }
+  .timer-text { font-size: 12px; color: var(--text3); margin-top: 10px; text-align: center; }
+  .resend-link { color: var(--accent); cursor: pointer; text-decoration: underline; }
+
+  /* EXISTING BANNER */
+  .existing-banner { background: var(--accent-light); border: 1px solid var(--accent); border-radius: var(--radius); padding: 1rem 1.1rem; margin-bottom: 1rem; display: none; }
+  .existing-banner.show { display: block; }
+  .existing-banner-title { font-family: 'Baloo 2', sans-serif; font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .existing-banner-info { font-size: 13px; color: var(--text2); margin-bottom: 10px; line-height: 1.6; }
+  .existing-banner-btns { display: flex; gap: 8px; }
 
   .step-indicator { display: flex; gap: 6px; margin-bottom: 1.5rem; padding: 0 0.25rem; }
   .step-dot { flex: 1; height: 4px; border-radius: 4px; background: var(--border2); transition: background 0.3s; }
@@ -58,84 +69,51 @@
   .step.active { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  .section-title {
-    font-family: 'Baloo 2', sans-serif; font-size: 20px; font-weight: 700;
-    color: var(--text); margin-bottom: 4px;
-  }
+  .section-title { font-family: 'Baloo 2', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .section-sub { font-size: 13px; color: var(--text2); margin-bottom: 1.25rem; line-height: 1.5; }
+  .edit-mode-badge { display: none; align-items: center; gap: 5px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+  .edit-mode-badge.show { display: inline-flex; }
 
-  .card {
-    background: var(--surface); border: 0.5px solid var(--border);
-    border-radius: var(--radius); padding: 1.1rem 1.1rem; margin-bottom: 1rem;
-    box-shadow: var(--shadow);
-  }
+  .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
   .field-label { font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .input-field {
-    width: 100%; border: 1px solid var(--border2); border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 15px; font-family: 'Noto Sans', sans-serif;
-    background: var(--surface); color: var(--text); outline: none;
-    transition: border-color 0.2s;
-  }
+  .input-field { width: 100%; border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 15px; font-family: 'Noto Sans', sans-serif; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.2s; }
   .input-field:focus { border-color: var(--primary); }
+  .input-field[readonly] { background: var(--surface2); color: var(--text2); cursor: not-allowed; }
 
   .class-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .class-btn {
-    border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 12px 8px;
-    font-size: 15px; font-family: 'Baloo 2', sans-serif; font-weight: 600;
-    cursor: pointer; background: var(--surface); color: var(--text); text-align: center;
-    transition: all 0.15s;
-  }
+  .class-btn { border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 12px 8px; font-size: 15px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; background: var(--surface); color: var(--text); text-align: center; transition: all 0.15s; }
   .class-btn:hover { background: var(--primary-light); border-color: var(--primary); }
   .class-btn.selected { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); }
   .class-btn .class-age { font-size: 11px; color: var(--text3); font-family: 'Noto Sans', sans-serif; font-weight: 400; display: block; margin-top: 2px; }
 
   .level-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; }
-  .lvl-btn {
-    border: 1px solid var(--border); border-radius: 6px; padding: 7px 2px;
-    font-size: 12px; font-weight: 500; cursor: pointer; background: var(--surface2);
-    color: var(--text2); text-align: center; transition: all 0.12s;
-  }
+  .lvl-btn { border: 1px solid var(--border); border-radius: 6px; padding: 7px 2px; font-size: 12px; font-weight: 500; cursor: pointer; background: var(--surface2); color: var(--text2); text-align: center; transition: all 0.12s; }
   .lvl-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
   .lvl-btn.selected { background: var(--primary); border-color: var(--primary); color: white; }
   .lvl-btn.completed { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 600; }
   .lvl-btn.completed::after { content: "✓"; font-size: 9px; display: block; line-height: 1; }
   .lvl-btn.current { background: var(--primary); border-color: var(--primary); color: white; font-weight: 700; box-shadow: 0 0 0 2px var(--primary-light); }
 
-  .page-batch-selector { display: flex; gap: 6px; margin-bottom: 10px; }
-  .batch-btn {
-    border: 1px solid var(--border2); border-radius: 20px; padding: 5px 14px;
-    font-size: 12px; cursor: pointer; background: var(--surface); color: var(--text2);
-  }
+  .page-batch-selector { display: flex; gap: 6px; }
+  .batch-btn { border: 1px solid var(--border2); border-radius: 20px; padding: 5px 14px; font-size: 12px; cursor: pointer; background: var(--surface); color: var(--text2); }
   .batch-btn.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); font-weight: 500; }
 
   .pages-wrap { max-height: 420px; overflow-y: auto; padding-right: 2px; }
   .pages-wrap::-webkit-scrollbar { width: 4px; }
   .pages-wrap::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
 
-  .page-row {
-    display: flex; align-items: center; gap: 10px;
-    border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 11px;
-    margin-bottom: 6px; background: var(--surface); transition: border-color 0.15s;
-  }
+  .page-row { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 11px; margin-bottom: 6px; background: var(--surface); transition: border-color 0.15s; }
   .page-row.has-wrong { border-color: #F0B3A0; background: #FDF6F3; }
   .page-num { font-size: 13px; font-weight: 600; min-width: 58px; color: var(--text); }
   .acts-wrap { display: flex; gap: 10px; flex: 1; flex-wrap: wrap; }
   .act-label { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text2); cursor: pointer; }
   .act-label input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--primary); cursor: pointer; }
-  .wrong-pill {
-    font-size: 10px; padding: 2px 7px; border-radius: 20px;
-    background: #FCEBEB; color: #A32D2D; font-weight: 600; white-space: nowrap;
-    display: none;
-  }
+  .wrong-pill { font-size: 10px; padding: 2px 7px; border-radius: 20px; background: #FCEBEB; color: #A32D2D; font-weight: 600; white-space: nowrap; display: none; }
   .wrong-pill.show { display: inline-block; }
 
   .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
   .page-info { font-size: 12px; color: var(--text3); }
-  .nav-btns { display: flex; gap: 8px; }
-  .nav-btn {
-    border: 1px solid var(--border2); border-radius: var(--radius-sm);
-    padding: 7px 14px; font-size: 13px; cursor: pointer; background: var(--surface); color: var(--text);
-  }
+  .nav-btn { border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 7px 14px; font-size: 13px; cursor: pointer; background: var(--surface); color: var(--text); }
   .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
   .summary-block { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 1rem; }
@@ -150,20 +128,13 @@
   .act-tags { display: flex; gap: 5px; flex-wrap: wrap; }
   .act-tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #FCEBEB; color: #A32D2D; font-weight: 500; }
 
-  .btn-primary {
-    background: var(--primary); color: white; border: none;
-    border-radius: var(--radius-sm); padding: 13px 24px; font-size: 15px;
-    font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer;
-    width: 100%; transition: background 0.15s;
-  }
+  .btn-primary { background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); padding: 13px 24px; font-size: 15px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.15s; }
   .btn-primary:hover { background: var(--primary-dark); }
   .btn-primary:disabled { background: var(--text3); cursor: not-allowed; }
-  .btn-secondary {
-    background: var(--surface); color: var(--text); border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); padding: 12px 20px; font-size: 14px;
-    font-family: 'Noto Sans', sans-serif; cursor: pointer; transition: background 0.15s;
-  }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 12px 20px; font-size: 14px; font-family: 'Noto Sans', sans-serif; cursor: pointer; transition: background 0.15s; }
   .btn-secondary:hover { background: var(--surface2); }
+  .btn-accent { background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); padding: 10px 18px; font-size: 14px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn-accent:hover { background: #1e6ab8; }
   .btn-row { display: flex; gap: 10px; margin-top: 1rem; }
   .btn-row .btn-primary { flex: 1; }
 
@@ -172,18 +143,15 @@
   .success-title { font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
   .success-sub { font-size: 14px; color: var(--text2); line-height: 1.6; }
 
-  .sending-overlay { display:none; position:fixed; inset:0; background:rgba(247,244,239,0.85); z-index:999; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
+  .sending-overlay { display:none; position:fixed; inset:0; background:rgba(247,244,239,0.88); z-index:999; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
   .sending-overlay.show { display:flex; }
   .spinner { width: 40px; height: 40px; border: 3px solid var(--border2); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .sending-text { font-family: 'Baloo 2', sans-serif; font-size: 16px; color: var(--text2); }
 
-  .config-notice {
-    background: #FFF8E7; border: 1px solid #F5C75A; border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 12px; color: #7A5A00; margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-  .config-notice strong { color: #5A3D00; }
+  #recaptcha-container { margin-top: 12px; }
+  #loginScreen { display: block; }
+  #mainApp { display: none; }
 </style>
 </head>
 <body>
@@ -194,129 +162,565 @@
     <div class="app-header-title">Worksheet Report</div>
     <div class="app-header-sub">Galat activities report karein</div>
   </div>
+  <div class="header-phone-badge" id="headerPhoneBadge">
+    📱 <span id="headerPhoneText"></span>
+    <span onclick="doLogout()" style="cursor:pointer;opacity:0.7;margin-left:6px;" title="Logout">✕</span>
+  </div>
 </div>
 <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:25%"></div></div>
 
-<div class="container">
-  <div class="step-indicator">
-    <div class="step-dot active" id="dot1"></div>
-    <div class="step-dot" id="dot2"></div>
-    <div class="step-dot" id="dot3"></div>
-    <div class="step-dot" id="dot4"></div>
-  </div>
+<!-- ==================== LOGIN SCREEN ==================== -->
+<div id="loginScreen">
+  <div class="container">
+    <div class="login-screen">
+      <div class="login-icon">🔐</div>
+      <div class="login-title">Phone se Login karein</div>
+      <div class="login-sub">Sirf registered parents hi form bhar sakte hain. Wahi number dalein jisse subscription liya tha.</div>
 
-  <!-- STEP 1 -->
-  <div class="step active" id="step1">
-    <div class="section-title">Bachche ki jankari</div>
-    <div class="section-sub">Pehle naam, class aur level chunein</div>
+      <div class="login-card">
+        <!-- STEP A: Phone number -->
+        <div id="phoneSection">
+          <div class="field-label">Registered Phone Number</div>
+          <div class="otp-row">
+            <input class="input-field" id="loginPhone" type="tel" placeholder="+91 XXXXX XXXXX" maxlength="15" onkeydown="if(event.key==='Enter') sendOtp()"/>
+            <button class="btn-accent" id="sendOtpBtn" onclick="sendOtp()" style="white-space:nowrap;padding:10px 16px;border-radius:var(--radius-sm);font-size:14px;flex-shrink:0;">OTP bhejein</button>
+          </div>
+          <div id="recaptcha-container"></div>
+          <div class="error-box" id="phoneError"></div>
+          <div class="info-box" id="phoneSentMsg">✅ OTP aapke number par bheja gaya!</div>
+        </div>
 
-    <div class="card">
-      <div class="field-label">Bachche ka naam</div>
-      <input class="input-field" id="childName" placeholder="Naam likhein..." style="margin-bottom:14px;"/>
-      <div class="field-label">Parent ka phone number</div>
-      <input class="input-field" id="parentPhone" placeholder="+91 XXXXX XXXXX" style="margin-bottom:14px;" type="tel" onblur="onPhoneOrClassChange()"/>
-      <div class="field-label">Class</div>
-      <div class="class-grid" style="margin-bottom:14px;">
-        <div class="class-btn" onclick="selectClass('Play',this)">Play<span class="class-age">2–3 saal</span></div>
-        <div class="class-btn" onclick="selectClass('Nursery',this)">Nursery<span class="class-age">3–4 saal</span></div>
-        <div class="class-btn" onclick="selectClass('Junior',this)">Junior<span class="class-age">4–5 saal</span></div>
-        <div class="class-btn" onclick="selectClass('Senior',this)">Senior<span class="class-age">5–7 saal</span></div>
-      </div>
-      <div class="field-label">Level (1–48) <span style="font-weight:400;color:var(--text3);font-size:11px;">— Pehli baar manually chunein, baad mein auto milega</span></div>
-      <div class="level-grid" id="levelGrid"></div>
-      <div id="levelHint" style="display:none;font-size:13px;margin-top:8px;padding:8px 10px;background:var(--primary-light);border-radius:var(--radius-sm);"></div>
-      <div style="font-size:12px;color:var(--accent);margin-top:8px;padding:8px 10px;background:var(--accent-light);border-radius:var(--radius-sm);">Pehli baar manually chunein — agli baar Google Sheet se auto-milega</div>
-    </div>
-    <button class="btn-primary" onclick="goStep2()">Aage jaiye →</button>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="step" id="step2">
-    <div class="section-title">Galat activities chunein</div>
-    <div class="section-sub" id="step2Info">Jo activities bachche ne galat ki hain, unhe tick karein. Sahi wali chhodein.</div>
-
-    <div class="card" style="padding:0.9rem 1rem;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <div id="wrongTotalBadge" style="font-size:12px;color:var(--text3);">Koi galat nahi abhi tak</div>
-        <div class="page-batch-selector" style="margin-bottom:0;">
-          <div class="batch-btn active" onclick="setBatch(10,this)">10</div>
-          <div class="batch-btn" onclick="setBatch(20,this)">20</div>
-          <div class="batch-btn" onclick="setBatch(50,this)">50</div>
+        <!-- STEP B: OTP verify -->
+        <div id="otpSection" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+          <div class="field-label" style="text-align:center;">OTP Enter karein</div>
+          <div class="otp-digits">
+            <input class="otp-digit" maxlength="1" id="d0" oninput="otpInput(0)" onkeydown="otpKey(0,event)"/>
+            <input class="otp-digit" maxlength="1" id="d1" oninput="otpInput(1)" onkeydown="otpKey(1,event)"/>
+            <input class="otp-digit" maxlength="1" id="d2" oninput="otpInput(2)" onkeydown="otpKey(2,event)"/>
+            <input class="otp-digit" maxlength="1" id="d3" oninput="otpInput(3)" onkeydown="otpKey(3,event)"/>
+            <input class="otp-digit" maxlength="1" id="d4" oninput="otpInput(4)" onkeydown="otpKey(4,event)"/>
+            <input class="otp-digit" maxlength="1" id="d5" oninput="otpInput(5)" onkeydown="otpKey(5,event)"/>
+          </div>
+          <div class="timer-text" id="timerText">OTP 2 minute mein expire hoga</div>
+          <div class="error-box" id="otpError"></div>
+          <button class="btn-primary" style="margin-top:14px;" onclick="verifyOtp()">✓ Verify karein</button>
+          <div style="text-align:center;margin-top:10px;">
+            <span style="font-size:12px;color:var(--text3);">Galat number? </span>
+            <span class="resend-link" style="font-size:12px;" onclick="goBackToPhone()">Wapas jaiye</span>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="pages-wrap" id="pagesWrap"></div>
-
-    <div class="nav-row">
-      <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">← Pehle</button>
-      <span class="page-info" id="pageInfo"></span>
-      <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Aage →</button>
-    </div>
-
-    <div class="btn-row" style="margin-top:1rem;">
-      <button class="btn-secondary" onclick="goStep(1)">← Wapas</button>
-      <button class="btn-primary" onclick="goStep3()">Review →</button>
-    </div>
   </div>
+</div>
 
-  <!-- STEP 3 -->
-  <div class="step" id="step3">
-    <div class="section-title">Review karein</div>
-    <div class="section-sub">Neeche check karein — sab theek hai toh submit karein</div>
+<!-- ==================== MAIN APP ==================== -->
+<div id="mainApp">
+  <div class="container">
 
-    <div class="summary-block">
-      <div class="metric"><div class="metric-val" id="mPages">0</div><div class="metric-lbl">Total Pages</div></div>
-      <div class="metric"><div class="metric-val red" id="mWrong">0</div><div class="metric-lbl">Galat Activities</div></div>
-      <div class="metric"><div class="metric-val green" id="mScore">-</div><div class="metric-lbl">Score</div></div>
+    <div class="existing-banner" id="existingBanner">
+      <div class="existing-banner-title">✏️ Aapne pehle form bhara hua hai</div>
+      <div class="existing-banner-info" id="existingBannerInfo">Aap purane form ko edit kar sakte hain ya nayi entry bana sakte hain.</div>
+      <div class="existing-banner-btns">
+        <button class="btn-accent" onclick="loadExistingEntry()">Purana form edit karein</button>
+        <button class="btn-secondary" onclick="startFresh()" style="font-size:13px;">Naya form</button>
+      </div>
     </div>
 
-    <div class="card">
-      <div class="field-label" style="margin-bottom:10px;">Galat activities ka detail</div>
-      <div id="wrongDetailList"></div>
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
     </div>
 
-    <div class="btn-row">
-      <button class="btn-secondary" onclick="goStep(2)">← Theek karein</button>
-      <button class="btn-primary" id="submitBtn" onclick="submitData()">✓ Submit karein</button>
-    </div>
-  </div>
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+      <div class="section-title">Bachche ki jankari</div>
+      <div class="section-sub">Naam, class aur level chunein</div>
+      <div class="edit-mode-badge" id="editModeBadge">✏️ Edit Mode — Purana form update ho raha hai</div>
 
-  <!-- STEP 4 -->
-  <div class="step" id="step4">
-    <div class="success-wrap">
-      <div class="success-icon">✓</div>
-      <div class="success-title">Bahut shukriya!</div>
-      <div class="success-sub">Aapka report teacher tak pahunch gaya.<br/>Woh iske hisaab se agali worksheet taiyar karenge.</div>
+      <div class="card">
+        <div class="field-label">Bachche ka naam</div>
+        <input class="input-field" id="childName" placeholder="Naam likhein..." style="margin-bottom:14px;"/>
+        <div class="field-label">Parent ka phone number</div>
+        <input class="input-field" id="parentPhone" style="margin-bottom:14px;" type="tel" readonly/>
+        <div class="field-label">Class</div>
+        <div class="class-grid" style="margin-bottom:14px;">
+          <div class="class-btn" onclick="selectClass('Play',this)">Play<span class="class-age">2–3 saal</span></div>
+          <div class="class-btn" onclick="selectClass('Nursery',this)">Nursery<span class="class-age">3–4 saal</span></div>
+          <div class="class-btn" onclick="selectClass('Junior',this)">Junior<span class="class-age">4–5 saal</span></div>
+          <div class="class-btn" onclick="selectClass('Senior',this)">Senior<span class="class-age">5–7 saal</span></div>
+        </div>
+        <div class="field-label">Level (1–48)</div>
+        <div class="level-grid" id="levelGrid"></div>
+        <div id="levelHint" style="display:none;font-size:13px;margin-top:8px;padding:8px 10px;background:var(--primary-light);border-radius:var(--radius-sm);"></div>
+      </div>
+      <button class="btn-primary" onclick="goStep2()">Aage jaiye →</button>
     </div>
-    <div class="card" id="finalSummary"></div>
-    <button class="btn-primary" style="margin-top:1rem;" onclick="resetAll()">Naya form bharein</button>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <div class="section-title">Galat activities chunein</div>
+      <div class="section-sub" id="step2Info"></div>
+      <div class="card" style="padding:0.9rem 1rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div id="wrongTotalBadge" style="font-size:12px;color:var(--text3);">Koi galat nahi abhi tak</div>
+          <div class="page-batch-selector">
+            <div class="batch-btn active" onclick="setBatch(10,this)">10</div>
+            <div class="batch-btn" onclick="setBatch(20,this)">20</div>
+            <div class="batch-btn" onclick="setBatch(50,this)">50</div>
+          </div>
+        </div>
+      </div>
+      <div class="pages-wrap" id="pagesWrap"></div>
+      <div class="nav-row">
+        <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">← Pehle</button>
+        <span class="page-info" id="pageInfo"></span>
+        <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Aage →</button>
+      </div>
+      <div class="btn-row" style="margin-top:1rem;">
+        <button class="btn-secondary" onclick="goStep(1)">← Wapas</button>
+        <button class="btn-primary" onclick="goStep3()">Review →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+      <div class="section-title">Review karein</div>
+      <div class="section-sub">Sab theek hai toh submit karein</div>
+      <div class="summary-block">
+        <div class="metric"><div class="metric-val" id="mPages">0</div><div class="metric-lbl">Total Pages</div></div>
+        <div class="metric"><div class="metric-val red" id="mWrong">0</div><div class="metric-lbl">Galat Activities</div></div>
+        <div class="metric"><div class="metric-val green" id="mScore">-</div><div class="metric-lbl">Score</div></div>
+      </div>
+      <div class="card">
+        <div class="field-label" style="margin-bottom:10px;">Galat activities ka detail</div>
+        <div id="wrongDetailList"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="goStep(2)">← Theek karein</button>
+        <button class="btn-primary" id="submitBtn" onclick="submitData()">✓ Submit karein</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step4">
+      <div class="success-wrap">
+        <div class="success-icon" id="successIcon">✓</div>
+        <div class="success-title" id="successTitle">Bahut shukriya!</div>
+        <div class="success-sub" id="successSub">Aapka report teacher tak pahunch gaya.</div>
+      </div>
+      <div class="card" id="finalSummary"></div>
+      <div style="margin-top:1rem;display:flex;gap:10px;">
+        <button class="btn-secondary" style="flex:1;" onclick="goEditMode()">✏️ Edit karein</button>
+        <button class="btn-primary" style="flex:1;" onclick="doLogout()">🔓 Logout</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <div class="sending-overlay" id="sendingOverlay">
   <div class="spinner"></div>
-  <div class="sending-text">Data bheja ja raha hai...</div>
+  <div class="sending-text" id="sendingText">Verify ho raha hai...</div>
 </div>
 
-<script>
+<!-- ==================== FIREBASE ==================== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { getFirestore, collection, query, where, getDocs, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
 // ============================================================
-// CONFIGURATION — YAHAN APNA GOOGLE APPS SCRIPT URL DAALO
+// AAPKI FIREBASE CONFIG
 // ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyDJqGfiz4vrJm0MlWBoBzxqN7wylATBgqc",
+  authDomain: "worksheet-otp.firebaseapp.com",
+  projectId: "worksheet-otp",
+  storageBucket: "worksheet-otp.firebasestorage.app",
+  messagingSenderId: "171434246427",
+  appId: "1:171434246427:web:ab78661b25a5e1558d13be"
+};
+
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbwgwcDFfFSiDB2w9HYJa1UJdmUjON1BhG2uaZIHpmmoudKjkC7YJ7Co_7awBDpiZO_vcw/exec";
 // ============================================================
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let confirmationResult = null;
 let S = {
-  name: '', phone: '', cls: '', level: 0,
-  completedLevels: [],
-  totalPages: 0, pages: [],
-  batchSize: 10, pageStart: 0
+  name:'', phone:'', cls:'', level:0, completedLevels:[],
+  totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false
 };
 
+// ============================================================
+// AUTH STATE — Auto login agar pehle se logged in ho
+// ============================================================
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const phone = user.phoneNumber.replace('+91','').replace(/\D/g,'');
+    S.phone = phone;
+    await onLoginSuccess(phone);
+  }
+});
+
+// ============================================================
+// RECAPTCHA SETUP
+// ============================================================
+function setupRecaptcha() {
+  if (window.recaptchaVerifier) return;
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    size: 'invisible',
+    callback: () => {}
+  });
+}
+
+// ============================================================
+// SEND OTP
+// ============================================================
+window.sendOtp = async function() {
+  const rawPhone = document.getElementById('loginPhone').value.trim();
+  const phoneErr = document.getElementById('phoneError');
+  const sentMsg = document.getElementById('phoneSentMsg');
+  phoneErr.classList.remove('show');
+  sentMsg.classList.remove('show');
+
+  const digits = rawPhone.replace(/\D/g,'').slice(-10);
+  if (digits.length !== 10) {
+    phoneErr.textContent = 'Sahi 10 digit ka phone number dalein.';
+    phoneErr.classList.add('show');
+    return;
+  }
+
+  const phoneE164 = '+91' + digits;
+
+  // Check if subscribed in Firestore
+  showSending('Check ho raha hai...');
+  try {
+    const q = query(collection(db, 'subscribers'), where('phone','==', digits), where('active','==', true));
+    const snap = await getDocs(q);
+    hideSending();
+    if (snap.empty) {
+      phoneErr.textContent = '❌ Yeh number registered nahi hai. Pehle subscription lijiye.';
+      phoneErr.classList.add('show');
+      return;
+    }
+  } catch(e) {
+    hideSending();
+    phoneErr.textContent = 'Connection error. Internet check karein.';
+    phoneErr.classList.add('show');
+    return;
+  }
+
+  // Send OTP via Firebase
+  showSending('OTP bheja ja raha hai...');
+  try {
+    setupRecaptcha();
+    confirmationResult = await signInWithPhoneNumber(auth, phoneE164, window.recaptchaVerifier);
+    hideSending();
+    sentMsg.classList.add('show');
+    document.getElementById('otpSection').style.display = 'block';
+    document.getElementById('sendOtpBtn').disabled = true;
+    document.getElementById('sendOtpBtn').textContent = '✓ Bheja';
+    document.getElementById('d0').focus();
+    startTimer();
+  } catch(e) {
+    hideSending();
+    window.recaptchaVerifier = null;
+    phoneErr.textContent = 'OTP bhejne mein error: ' + (e.message || 'Dobara try karein');
+    phoneErr.classList.add('show');
+  }
+};
+
+// ============================================================
+// OTP INPUT HELPERS
+// ============================================================
+window.otpInput = function(idx) {
+  const val = document.getElementById('d'+idx).value;
+  if (val && idx < 5) document.getElementById('d'+(idx+1)).focus();
+};
+window.otpKey = function(idx, e) {
+  if (e.key==='Backspace' && !document.getElementById('d'+idx).value && idx>0)
+    document.getElementById('d'+(idx-1)).focus();
+};
+
+// ============================================================
+// VERIFY OTP
+// ============================================================
+window.verifyOtp = async function() {
+  if (!confirmationResult) { alert('Pehle OTP mangaein'); return; }
+  const code = ['d0','d1','d2','d3','d4','d5'].map(id => document.getElementById(id).value).join('');
+  if (code.length < 6) {
+    showOtpError('Poora 6 digit OTP dalein.');
+    return;
+  }
+  showSending('Verify ho raha hai...');
+  try {
+    await confirmationResult.confirm(code);
+    hideSending();
+    // onAuthStateChanged will handle the rest
+  } catch(e) {
+    hideSending();
+    showOtpError('Galat OTP. Dobara check karein.');
+    ['d0','d1','d2','d3','d4','d5'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('d0').focus();
+  }
+};
+
+function showOtpError(msg) {
+  const el = document.getElementById('otpError');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+window.goBackToPhone = function() {
+  document.getElementById('otpSection').style.display = 'none';
+  document.getElementById('phoneSentMsg').classList.remove('show');
+  document.getElementById('phoneError').classList.remove('show');
+  document.getElementById('sendOtpBtn').disabled = false;
+  document.getElementById('sendOtpBtn').textContent = 'OTP bhejein';
+  confirmationResult = null;
+  window.recaptchaVerifier = null;
+};
+
+// ============================================================
+// TIMER
+// ============================================================
+let timerInterval = null;
+function startTimer() {
+  clearInterval(timerInterval);
+  let remaining = 120;
+  const el = document.getElementById('timerText');
+  timerInterval = setInterval(() => {
+    remaining--;
+    const m = Math.floor(remaining/60);
+    const s = remaining%60;
+    if (remaining > 0) {
+      el.textContent = `OTP ${m}:${s.toString().padStart(2,'0')} mein expire hoga`;
+    } else {
+      clearInterval(timerInterval);
+      el.innerHTML = 'OTP expire ho gaya — <span class="resend-link" onclick="goBackToPhone()">dobara bhejein</span>';
+    }
+  }, 1000);
+}
+
+// ============================================================
+// ON LOGIN SUCCESS
+// ============================================================
+async function onLoginSuccess(phone) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  document.getElementById('parentPhone').value = phone;
+  document.getElementById('headerPhoneText').textContent = phone;
+  document.getElementById('headerPhoneBadge').classList.add('show');
+
+  // Check existing entry in Firestore
+  try {
+    const entryRef = doc(db, 'entries', phone);
+    const entrySnap = await getDoc(entryRef);
+    if (entrySnap.exists()) {
+      const data = entrySnap.data();
+      const banner = document.getElementById('existingBanner');
+      const info = document.getElementById('existingBannerInfo');
+      banner.classList.add('show');
+      const dt = data.timestamp ? new Date(data.timestamp).toLocaleDateString('hi-IN') : '';
+      info.textContent = `${data.childName} — ${data.cls} Class, Level ${data.level} — ${dt}`;
+      // Store for later use
+      window._existingEntry = data;
+    }
+  } catch(e) { console.log('Entry check error:', e); }
+
+  // Load level from localStorage
+  const stored = getStoredData(phone, null);
+  if (stored && stored.level) {
+    S.level = stored.level;
+    S.completedLevels = stored.completed || [];
+    buildLevelGrid(S.level, S.completedLevels);
+  } else {
+    buildLevelGrid(0, false);
+  }
+
+  goStep(1);
+}
+
+// ============================================================
+// LOAD EXISTING ENTRY FOR EDIT
+// ============================================================
+window.loadExistingEntry = function() {
+  const data = window._existingEntry;
+  if (!data) return;
+  S.isEditMode = true;
+  S.name = data.childName;
+  S.cls = data.cls;
+  S.level = data.level;
+  S.completedLevels = data.completedLevels || [];
+  S.totalPages = data.totalPages || 60;
+  S.pages = data.pagesState || [];
+  if (!S.pages.length) initPages();
+
+  document.getElementById('childName').value = S.name;
+  document.getElementById('editModeBadge').classList.add('show');
+  document.querySelectorAll('.class-btn').forEach(b => {
+    b.classList.toggle('selected', b.textContent.trim().startsWith(S.cls));
+  });
+  buildLevelGrid(S.level, S.completedLevels);
+  document.getElementById('existingBanner').classList.remove('show');
+  document.getElementById('step2Info').textContent = `${S.name} — ${S.cls} Class, Level ${S.level} — Total ${S.totalPages} pages`;
+  renderPages();
+  goStep(2);
+};
+
+window.startFresh = function() {
+  S.isEditMode = false;
+  document.getElementById('editModeBadge').classList.remove('show');
+  document.getElementById('existingBanner').classList.remove('show');
+  document.getElementById('childName').value = '';
+  S.name=''; S.cls=''; S.level=0;
+  document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
+  buildLevelGrid(0, false);
+  goStep(1);
+};
+
+window.goEditMode = function() {
+  S.isEditMode = true;
+  document.getElementById('editModeBadge').classList.add('show');
+  document.getElementById('childName').value = S.name;
+  document.querySelectorAll('.class-btn').forEach(b => {
+    b.classList.toggle('selected', b.textContent.trim().startsWith(S.cls));
+  });
+  buildLevelGrid(S.level, S.completedLevels);
+  renderPages();
+  goStep(2);
+};
+
+// ============================================================
+// LOGOUT
+// ============================================================
+window.doLogout = async function() {
+  if (!confirm('Logout karna chahte hain?')) return;
+  clearInterval(timerInterval);
+  await signOut(auth);
+  S = { name:'', phone:'', cls:'', level:0, completedLevels:[], totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false };
+  window._existingEntry = null;
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'block';
+  document.getElementById('headerPhoneBadge').classList.remove('show');
+  document.getElementById('loginPhone').value = '';
+  document.getElementById('otpSection').style.display = 'none';
+  document.getElementById('phoneSentMsg').classList.remove('show');
+  document.getElementById('phoneError').classList.remove('show');
+  document.getElementById('sendOtpBtn').disabled = false;
+  document.getElementById('sendOtpBtn').textContent = 'OTP bhejein';
+  ['d0','d1','d2','d3','d4','d5'].forEach(id => document.getElementById(id).value='');
+  confirmationResult = null;
+  window.recaptchaVerifier = null;
+};
+
+// ============================================================
+// SUBMIT DATA
+// ============================================================
+window.submitData = async function() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  showSending('Data save ho raha hai...');
+
+  const wrongPages = S.pages.filter(p => p.acts.some(Boolean));
+  const totalWrong = S.pages.reduce((s,p) => s + p.acts.filter(Boolean).length, 0);
+  const totalActs = S.pages.reduce((s,p) => s + p.acts.length, 0);
+  const score = totalActs > 0 ? Math.round(((totalActs-totalWrong)/totalActs)*100) : 100;
+  const wrongDetail = wrongPages.map(p => {
+    const acts = p.acts.map((w,i) => w ? 'Act'+(i+1) : '').filter(Boolean).join(', ');
+    return 'P'+p.num+': '+acts;
+  }).join(' | ');
+
+  const now = new Date().toISOString();
+  const leveledUp = (score === 100 && S.level < 48);
+  if (leveledUp) S.level = S.level + 1;
+
+  const entryData = {
+    timestamp: now,
+    childName: S.name,
+    parentPhone: S.phone,
+    cls: S.cls,
+    level: leveledUp ? S.level - 1 : S.level,
+    completedLevels: S.completedLevels,
+    totalPages: S.totalPages,
+    pagesState: S.pages,
+    score: score,
+    wrongActivities: totalWrong,
+    wrongDetail: wrongDetail,
+    isEdit: S.isEditMode
+  };
+
+  // Save to Firestore (upsert — ek hi entry per phone)
+  try {
+    await setDoc(doc(db, 'entries', S.phone), entryData);
+    window._existingEntry = entryData;
+  } catch(e) { console.log('Firestore save error:', e); }
+
+  // Send to Google Sheet
+  try {
+    fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({...entryData, uniqueKey: S.phone + '_' + S.cls})
+    });
+  } catch(e) {}
+
+  if (leveledUp) {
+    if (!S.completedLevels.includes(S.level - 1)) S.completedLevels.push(S.level - 1);
+    saveStoredData(S.phone, S.cls, S.level, S.completedLevels);
+  }
+
+  setTimeout(() => {
+    hideSending();
+    btn.disabled = false;
+    showSuccess(totalWrong, score, wrongPages.length, leveledUp);
+  }, 800);
+};
+
+function showSuccess(totalWrong, score, wrongPgCount, leveledUp) {
+  const prevLevel = S.level - (leveledUp ? 1 : 0);
+  const levelUpHtml = leveledUp
+    ? `<div style="margin-top:12px;background:var(--green);border-radius:var(--radius-sm);padding:16px;text-align:center;">
+        <div style="font-size:28px;">🎉</div>
+        <div style="font-size:18px;font-weight:700;color:white;font-family:'Baloo 2',sans-serif;">Level Up!</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.9);margin-top:4px;">Level ${prevLevel} → <strong>Level ${S.level}</strong></div>
+       </div>` : '';
+  const editNote = S.isEditMode
+    ? '<div style="margin-top:8px;font-size:12px;color:var(--accent);padding:6px 10px;background:var(--accent-light);border-radius:var(--radius-sm);">✏️ Purana form update kiya gaya</div>' : '';
+
+  document.getElementById('finalSummary').innerHTML = `
+    <div class="wrong-list-item"><span style="color:var(--text3);font-size:13px;">Bachcha</span><span style="font-weight:600;">${S.name}</span></div>
+    <div class="wrong-list-item"><span style="color:var(--text3);font-size:13px;">Class</span><span>${S.cls} — Level ${prevLevel}</span></div>
+    <div class="wrong-list-item"><span style="color:var(--text3);font-size:13px;">Score</span><span style="color:var(--green);font-weight:600;">${score}%</span></div>
+    <div class="wrong-list-item" style="border:none;"><span style="color:var(--text3);font-size:13px;">Galat activities</span><span style="color:${totalWrong>0?'var(--primary)':'var(--green)'};font-weight:600;">${totalWrong} (${wrongPgCount} pages)</span></div>
+    ${editNote}${levelUpHtml}`;
+
+  const icon = document.getElementById('successIcon');
+  const title = document.getElementById('successTitle');
+  const sub = document.getElementById('successSub');
+  if (leveledUp) {
+    icon.textContent='⭐'; icon.style.background='#FFF3CD';
+    title.textContent='Shabaash! Perfect Score!';
+    sub.innerHTML=`Sab activities bilkul sahi thi!<br/><span style="color:var(--green);font-weight:600;">Ab Level ${S.level} ki worksheet taiyar hogi.</span>`;
+  } else {
+    icon.textContent='✓'; icon.style.background='var(--green-light)';
+    title.textContent = S.isEditMode ? 'Form update ho gaya!' : 'Bahut shukriya!';
+    sub.innerHTML='Aapka report teacher tak pahunch gaya.';
+  }
+  goStep(4);
+}
+
+// ============================================================
+// FORM HELPERS
+// ============================================================
 function buildLevelGrid(currentLevel, completedArr) {
-  // completedArr = array of completed level numbers e.g. [1,2,3]
-  const completed = Array.isArray(completedArr) ? completedArr : 
-    (completedArr === true && currentLevel ? Array.from({length: currentLevel-1}, (_,i) => i+1) : []);
+  const completed = Array.isArray(completedArr) ? completedArr : [];
   const g = document.getElementById('levelGrid');
   g.innerHTML = '';
   for (let i = 1; i <= 48; i++) {
@@ -324,7 +728,6 @@ function buildLevelGrid(currentLevel, completedArr) {
     b.textContent = i;
     if (completed.includes(i)) {
       b.className = 'lvl-btn completed';
-      b.title = 'Level ' + i + ' — Complete!';
     } else if (currentLevel && i === currentLevel) {
       b.className = 'lvl-btn current selected';
       S.level = i;
@@ -334,79 +737,40 @@ function buildLevelGrid(currentLevel, completedArr) {
     b.onclick = () => {
       S.level = i;
       document.querySelectorAll('.lvl-btn').forEach(x => {
-        x.classList.remove('selected','current');
         if (!x.classList.contains('completed')) x.className = 'lvl-btn';
+        else x.classList.remove('selected','current');
       });
       b.classList.add('selected');
       document.getElementById('levelGrid').style.outline='';
-      document.getElementById('levelGrid').style.padding='';
       const h=document.getElementById('levelHint'); if(h) h.style.display='none';
     };
     g.appendChild(b);
   }
 }
 
-function selectClass(cls, el) {
+window.selectClass = function(cls, el) {
   S.cls = cls;
   document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
-  onPhoneOrClassChange();
-}
-
-function initPages() {
-  S.pages = [];
-  for (let i = 1; i <= S.totalPages; i++) {
-    const nActs = 2;
-    S.pages.push({ num: i, acts: Array(nActs).fill(false) });
-  }
-}
-
-// localStorage se level aur completed levels fetch karo
-function getStoredData(phone, cls) {
-  try {
-    const key = 'ws_' + phone + '_' + cls;
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : null;
-  } catch(e) { return null; }
-}
-
-function saveStoredData(phone, cls, currentLevel, completedLevels) {
-  try {
-    const key = 'ws_' + phone + '_' + cls;
-    localStorage.setItem(key, JSON.stringify({ level: currentLevel, completed: completedLevels }));
-  } catch(e) {}
-}
-
-// Phone ya class change hone par level auto-load karo
-function onPhoneOrClassChange() {
-  const phone = document.getElementById('parentPhone').value.trim();
-  const cls = S.cls;
-  if (!phone || !cls) return;
-  const stored = getStoredData(phone, cls);
-  if (stored && stored.level) {
+  const stored = getStoredData(S.phone, cls);
+  if (stored && stored.level && !S.isEditMode) {
     S.level = stored.level;
     S.completedLevels = stored.completed || [];
     buildLevelGrid(S.level, S.completedLevels);
   }
+};
+
+function initPages() {
+  S.pages = [];
+  for (let i = 1; i <= S.totalPages; i++) {
+    S.pages.push({ num: i, acts: Array(2).fill(false) });
+  }
 }
 
-function goStep2() {
+window.goStep2 = function() {
   S.name = document.getElementById('childName').value.trim();
-  S.phone = document.getElementById('parentPhone').value.trim();
   if (!S.name) { alert('Bachche ka naam likhein.'); return; }
-  if (!S.phone) { alert('Phone number likhein.'); return; }
   if (!S.cls) { alert('Class chunein.'); return; }
-
-  // localStorage se check karo
-  if (!S.level) {
-    const stored = getStoredData(S.phone, S.cls);
-    if (stored && stored.level) {
-      S.level = stored.level;
-      S.completedLevels = stored.completed || [];
-      buildLevelGrid(S.level, S.completedLevels);
-    }
-  }
-
   if (!S.level) {
     const grid = document.getElementById('levelGrid');
     grid.style.outline = '2px solid var(--primary)';
@@ -414,39 +778,34 @@ function goStep2() {
     grid.style.padding = '6px';
     const hint = document.getElementById('levelHint');
     hint.style.display = 'block';
-    hint.textContent = 'Pehli baar hai — level chunein (agli baar auto aayega)';
+    hint.textContent = 'Level chunein';
     hint.style.color = 'var(--primary)';
     hint.style.fontWeight = '600';
-    grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    grid.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  proceedToStep2();
-}
-
-function proceedToStep2() {
   document.getElementById('levelGrid').style.outline = '';
-  document.getElementById('levelGrid').style.padding = '';
   S.totalPages = 60;
   S.pageStart = 0;
-  initPages();
-  document.getElementById('step2Info').textContent = S.name + ' — ' + S.cls + ' Class, Level ' + S.level + ' — Total ' + S.totalPages + ' pages';
+  if (!S.pages.length || !S.isEditMode) initPages();
+  document.getElementById('step2Info').textContent = `${S.name} — ${S.cls} Class, Level ${S.level} — Total ${S.totalPages} pages`;
   renderPages();
   goStep(2);
-}
+};
 
-function setBatch(n, el) {
+window.setBatch = function(n, el) {
   S.batchSize = n; S.pageStart = 0;
   document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   renderPages();
-}
+};
 
-function changePage(dir) {
+window.changePage = function(dir) {
   S.pageStart += dir * S.batchSize;
   if (S.pageStart < 0) S.pageStart = 0;
   if (S.pageStart >= S.totalPages) S.pageStart = Math.max(0, S.totalPages - S.batchSize);
   renderPages();
-}
+};
 
 function renderPages() {
   const wrap = document.getElementById('pagesWrap');
@@ -459,7 +818,7 @@ function renderPages() {
     row.className = 'page-row' + (wrongCnt > 0 ? ' has-wrong' : '');
     row.id = 'row-' + i;
     const actsHtml = pg.acts.map((v, ai) =>
-      `<label class="act-label"><input type="checkbox" ${v ? 'checked' : ''} onchange="toggleAct(${i},${ai},this)"/> Act ${ai+1}</label>`
+      `<label class="act-label"><input type="checkbox" ${v?'checked':''} onchange="toggleAct(${i},${ai},this)"/> Act ${ai+1}</label>`
     ).join('');
     row.innerHTML = `<span class="page-num">Page ${pg.num}</span><div class="acts-wrap">${actsHtml}</div><span class="wrong-pill ${wrongCnt>0?'show':''}" id="pill-${i}">${wrongCnt} galat</span>`;
     wrap.appendChild(row);
@@ -470,15 +829,14 @@ function renderPages() {
   updateWrongBadge();
 }
 
-function toggleAct(pi, ai, el) {
+window.toggleAct = function(pi, ai, el) {
   S.pages[pi].acts[ai] = el.checked;
   const cnt = S.pages[pi].acts.filter(Boolean).length;
   const pill = document.getElementById('pill-'+pi);
-  pill.textContent = cnt + ' galat'; pill.className = 'wrong-pill' + (cnt>0?' show':'');
-  const row = document.getElementById('row-'+pi);
-  row.className = 'page-row' + (cnt>0?' has-wrong':'');
+  pill.textContent = cnt + ' galat'; pill.className = 'wrong-pill'+(cnt>0?' show':'');
+  document.getElementById('row-'+pi).className = 'page-row'+(cnt>0?' has-wrong':'');
   updateWrongBadge();
-}
+};
 
 function updateWrongBadge() {
   const total = S.pages.reduce((s,p) => s + p.acts.filter(Boolean).length, 0);
@@ -487,7 +845,7 @@ function updateWrongBadge() {
   badge.style.color = total > 0 ? 'var(--primary)' : 'var(--text3)';
 }
 
-function goStep3() {
+window.goStep3 = function() {
   const wrongPages = S.pages.filter(p => p.acts.some(Boolean));
   const totalWrong = S.pages.reduce((s,p) => s + p.acts.filter(Boolean).length, 0);
   const totalActs = S.pages.reduce((s,p) => s + p.acts.length, 0);
@@ -505,120 +863,46 @@ function goStep3() {
     }).join('');
   }
   goStep(3);
-}
+};
 
-async function submitData() {
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  document.getElementById('sendingOverlay').classList.add('show');
-
-  const wrongPages = S.pages.filter(p => p.acts.some(Boolean));
-  const totalWrong = S.pages.reduce((s,p) => s + p.acts.filter(Boolean).length, 0);
-  const totalActs = S.pages.reduce((s,p) => s + p.acts.length, 0);
-  const score = totalActs > 0 ? Math.round(((totalActs-totalWrong)/totalActs)*100) : 100;
-
-  const wrongDetail = wrongPages.map(p => {
-    const acts = p.acts.map((w,i) => w ? 'Act'+(i+1) : '').filter(Boolean).join(', ');
-    return 'P'+p.num+': '+acts;
-  }).join(' | ');
-
-  const payload = {
-    timestamp: new Date().toISOString(),
-    childName: S.name,
-    parentPhone: S.phone,
-    uniqueKey: S.phone + '_' + S.cls,
-    className: S.cls,
-    level: S.level,
-    totalPages: S.totalPages,
-    totalActivities: totalActs,
-    wrongActivities: totalWrong,
-    score: score,
-    wrongDetail: wrongDetail,
-    wrongPageCount: wrongPages.length
-  };
-
-  // no-cors mode mein response nahi milta — fetch ke baad directly success dikhao
-  const leveledUp = (score === 100 && S.level < 48);
-  if (leveledUp) S.level = S.level + 1;
-  try {
-    fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } catch(e) {
-    console.log('Fetch error (non-blocking):', e);
-  }
-  // 1 second baad success dikhao (data sheet tak pahunch jaata hai)
-  setTimeout(() => {
-    document.getElementById('sendingOverlay').classList.remove('show');
-    showSuccess(totalWrong, score, wrongPages.length, leveledUp);
-  }, 1000);
-}
-
-function showSuccess(totalWrong, score, wrongPgCount, leveledUp) {
-  // localStorage update karo
-  if (leveledUp) {
-    if (!S.completedLevels) S.completedLevels = [];
-    const prevLvl = S.level - 1;
-    if (!S.completedLevels.includes(prevLvl)) S.completedLevels.push(prevLvl);
-    saveStoredData(S.phone, S.cls, S.level, S.completedLevels);
-  }
-  const prevLevel = S.level - (leveledUp ? 1 : 0);
-  const levelUpHtml = leveledUp
-    ? `<div style="margin-top:12px;background:var(--green);border-radius:var(--radius-sm);padding:16px;text-align:center;">
-        <div style="font-size:28px;margin-bottom:4px;">🎉</div>
-        <div style="font-size:18px;font-weight:700;color:white;font-family:'Baloo 2',sans-serif;">Level Up!</div>
-        <div style="font-size:14px;color:rgba(255,255,255,0.9);margin-top:4px;">Level ${prevLevel} → <strong>Level ${S.level}</strong></div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-top:6px;">Ab ${S.name} ko Level ${S.level} ki worksheet milegi</div>
-       </div>`
-    : '';
-  document.getElementById('finalSummary').innerHTML = `
-    <div class="wrong-list-item"><span style="color:var(--text3);font-size:13px;">Bachcha</span><span style="font-weight:600;">${S.name}</span></div>
-    <div class="wrong-list-item"><span style="color:var(--text3);font-size:13px;">Class</span><span>${S.cls} — Level ${prevLevel}</span></div>
-    <div class="wrong-list-item"><span style="color:var(--text3);font-size:13px;">Score</span><span style="color:var(--green);font-weight:600;">${score}%</span></div>
-    <div class="wrong-list-item" style="border:none;"><span style="color:var(--text3);font-size:13px;">Galat activities</span><span style="color:${totalWrong>0?'var(--primary)':'var(--green)'};font-weight:600;">${totalWrong} (${wrongPgCount} pages)</span></div>
-    ${levelUpHtml}
-  `;
-  const icon = document.getElementById('step4').querySelector('.success-icon');
-  const sub = document.getElementById('step4').querySelector('.success-sub');
-  const title = document.getElementById('step4').querySelector('.success-title');
-  if (leveledUp) {
-    icon.textContent = '⭐';
-    icon.style.background = '#FFF3CD';
-    title.textContent = 'Shabaash! Perfect Score!';
-    sub.innerHTML = `Sab activities bilkul sahi thi!<br/><span style="color:var(--green);font-weight:600;">Ab Level ${S.level} ki worksheet taiyar hogi.</span>`;
-  } else {
-    icon.textContent = '✓';
-    icon.style.background = 'var(--green-light)';
-    title.textContent = 'Bahut shukriya!';
-    sub.innerHTML = `Aapka report teacher tak pahunch gaya.<br/>Woh iske hisaab se agali worksheet taiyar karenge.`;
-  }
-  goStep(4);
-}
-
-function goStep(n) {
+window.goStep = function(n) {
   document.querySelectorAll('.step').forEach((s,i) => s.classList.toggle('active', i+1===n));
   const pcts = ['25%','50%','75%','100%'];
   document.getElementById('progressBar').style.width = pcts[n-1];
   ['dot1','dot2','dot3','dot4'].forEach((id,i) => {
-    const el = document.getElementById(id);
-    el.className = 'step-dot' + (i+1 < n ? ' done' : i+1 === n ? ' active' : '');
+    document.getElementById(id).className = 'step-dot' + (i+1<n?' done':i+1===n?' active':'');
   });
   window.scrollTo({top:0, behavior:'smooth'});
+};
+
+// ============================================================
+// LOCAL STORAGE
+// ============================================================
+function getStoredData(phone, cls) {
+  try {
+    const key = 'ws_' + phone + (cls ? '_'+cls : '');
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
 }
 
-function resetAll() {
-  S = { name:'', phone:'', cls:'', level:0, completedLevels:[], totalPages:0, pages:[], batchSize:10, pageStart:0 };
-  document.getElementById('childName').value = '';
-  document.getElementById('parentPhone').value = '';
-  buildLevelGrid(0, false);
-  document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
-  goStep(1);
+function saveStoredData(phone, cls, level, completed) {
+  try {
+    localStorage.setItem('ws_'+phone+'_'+cls, JSON.stringify({level, completed}));
+  } catch(e) {}
 }
 
-buildLevelGrid(0, false);
+// ============================================================
+// OVERLAY HELPERS
+// ============================================================
+function showSending(msg) {
+  document.getElementById('sendingText').textContent = msg || 'Loading...';
+  document.getElementById('sendingOverlay').classList.add('show');
+}
+function hideSending() {
+  document.getElementById('sendingOverlay').classList.remove('show');
+}
+
 </script>
 </body>
 </html>
