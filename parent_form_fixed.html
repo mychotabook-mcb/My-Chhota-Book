@@ -535,10 +535,10 @@
 <div class="toast" id="toast"></div>
 
 <!-- ==================== FIREBASE ==================== -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-import { getFirestore, collection, query, where, getDocs, doc, setDoc, getDoc, updateDoc, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
 
 // ============================================================
 // FIREBASE CONFIG
@@ -558,9 +558,9 @@ const SHEET_URL = "https://script.google.com/macros/s/AKfycbwgwcDFfFSiDB2w9HYJa1
 const ADMIN_PASSWORD = "admin@1234";
 
 // ============================================================
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 let confirmationResult = null;
 let S = {
@@ -583,7 +583,7 @@ let allStudents = [];
 // ============================================================
 // AUTH STATE
 // ============================================================
-onAuthStateChanged(auth, async (user) => {
+auth.onAuthStateChanged(async (user) => {
   if (user) {
     const phone = user.phoneNumber.replace('+91','').replace(/\D/g,'');
     S.phone = phone;
@@ -596,7 +596,7 @@ onAuthStateChanged(auth, async (user) => {
 // ============================================================
 function setupRecaptcha() {
   if (window.recaptchaVerifier) return;
-  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
     size: 'invisible', callback: () => {}
   });
 }
@@ -621,8 +621,8 @@ window.sendOtp = async function() {
   const phoneE164 = '+91' + digits;
   showSending('Check ho raha hai...');
   try {
-    const q = query(collection(db, 'subscribers'), where('phone','==', digits), where('active','==', true));
-    const snap = await getDocs(q);
+    const snap = await db.collection('subscribers')
+      .where('phone','==', digits).where('active','==', true).get();
     hideSending();
     if (snap.empty) {
       phoneErr.textContent = '❌ Yeh number registered nahi hai. Pehle subscription lijiye.';
@@ -639,7 +639,7 @@ window.sendOtp = async function() {
   showSending('OTP bheja ja raha hai...');
   try {
     setupRecaptcha();
-    confirmationResult = await signInWithPhoneNumber(auth, phoneE164, window.recaptchaVerifier);
+    confirmationResult = await auth.signInWithPhoneNumber(phoneE164, window.recaptchaVerifier);
     hideSending();
     sentMsg.classList.add('show');
     document.getElementById('otpSection').style.display = 'block';
@@ -739,16 +739,15 @@ async function onLoginSuccess(phone) {
   // Check subscriber record for admin-set class/level
   let subscriberData = null;
   try {
-    const subQ = query(collection(db, 'subscribers'), where('phone','==', phone), where('active','==', true));
-    const subSnap = await getDocs(subQ);
+    const subSnap = await db.collection('subscribers')
+      .where('phone','==', phone).where('active','==', true).get();
     if (!subSnap.empty) subscriberData = subSnap.docs[0].data();
   } catch(e) {}
 
   // Check existing worksheet delivery status
   try {
-    const wsRef = doc(db, 'worksheets', phone);
-    const wsSnap = await getDoc(wsRef);
-    if (wsSnap.exists()) {
+    const wsSnap = await db.collection('worksheets').doc(phone).get();
+    if (wsSnap.exists) {
       const wsData = wsSnap.data();
       const banner = document.getElementById('wsBanner');
       const title = document.getElementById('wsBannerTitle');
@@ -768,9 +767,8 @@ async function onLoginSuccess(phone) {
 
   // Check existing entry in Firestore
   try {
-    const entryRef = doc(db, 'entries', phone);
-    const entrySnap = await getDoc(entryRef);
-    if (entrySnap.exists()) {
+    const entrySnap = await db.collection('entries').doc(phone).get();
+    if (entrySnap.exists) {
       const data = entrySnap.data();
       const banner = document.getElementById('existingBanner');
       const info = document.getElementById('existingBannerInfo');
@@ -836,9 +834,8 @@ function applyAgeLevelRule(cls) {
 // ============================================================
 async function loadAgeLevelRules() {
   try {
-    const rulesRef = doc(db, 'config', 'ageLevelRules');
-    const snap = await getDoc(rulesRef);
-    if (snap.exists() && snap.data().rules) {
+    const snap = await db.collection('config').doc('ageLevelRules').get();
+    if (snap.exists && snap.data().rules) {
       ageLevelRules = snap.data().rules;
     }
   } catch(e) {}
@@ -846,7 +843,6 @@ async function loadAgeLevelRules() {
 }
 
 window.saveAgeLevelRules = async function() {
-  // Read from table inputs
   const rows = document.querySelectorAll('#ageLevelTableBody tr');
   rows.forEach((row, i) => {
     const inputs = row.querySelectorAll('input[type=number]');
@@ -854,7 +850,7 @@ window.saveAgeLevelRules = async function() {
     if (inputs[1]) ageLevelRules[i].maxLevel = parseInt(inputs[1].value) || ageLevelRules[i].maxLevel;
   });
   try {
-    await setDoc(doc(db, 'config', 'ageLevelRules'), { rules: ageLevelRules });
+    await db.collection('config').doc('ageLevelRules').set({ rules: ageLevelRules });
     showToast('✅ Rules save ho gaye!');
   } catch(e) {
     showToast('❌ Save mein error. Dobara try karein.');
@@ -937,7 +933,7 @@ window.goEditMode = function() {
 window.doLogout = async function() {
   if (!confirm('Logout karna chahte hain?')) return;
   clearInterval(timerInterval);
-  await signOut(auth);
+  await auth.signOut();
   S = { name:'', phone:'', cls:'', level:0, completedLevels:[], totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false, adminLockedClass:false, adminLockedLevel:false };
   window._existingEntry = null;
   document.getElementById('mainApp').style.display = 'none';
@@ -986,12 +982,12 @@ window.submitData = async function() {
     wrongActivities: totalWrong, wrongDetail: wrongDetail, isEdit: S.isEditMode
   };
 
-  try { await setDoc(doc(db, 'entries', S.phone), entryData); window._existingEntry = entryData; } catch(e) {}
+  try { await db.collection('entries').doc(S.phone).set(entryData); window._existingEntry = entryData; } catch(e) {}
 
   // Mark worksheet as pending delivery for next level
   if (leveledUp) {
     try {
-      await setDoc(doc(db, 'worksheets', S.phone), {
+      await db.collection('worksheets').doc(S.phone).set({
         phone: S.phone, childName: S.name, cls: S.cls,
         level: S.level, delivered: false, requestedAt: now
       });
@@ -1307,9 +1303,9 @@ async function enterAdminPanel() {
 async function loadAllStudents() {
   showSending('Students load ho rahe hain...');
   try {
-    const entriesSnap = await getDocs(collection(db, 'entries'));
-    const wsSnap = await getDocs(collection(db, 'worksheets'));
-    const subSnap = await getDocs(collection(db, 'subscribers'));
+    const entriesSnap = await db.collection('entries').get();
+    const wsSnap = await db.collection('worksheets').get();
+    const subSnap = await db.collection('subscribers').get();
 
     const wsMap = {};
     wsSnap.forEach(d => { wsMap[d.id] = d.data(); });
@@ -1436,14 +1432,12 @@ window.adminSetClassLevel = async function(phone) {
 
   showSending('Setting ho raha hai...');
   try {
-    // Find subscriber doc and update it
-    const subQ = query(collection(db, 'subscribers'), where('phone','==', phone));
-    const subSnap = await getDocs(subQ);
+    const subSnap = await db.collection('subscribers')
+      .where('phone','==', phone).get();
     if (!subSnap.empty) {
-      await updateDoc(subSnap.docs[0].ref, { adminSetClass: cls, adminSetLevel: level });
+      await subSnap.docs[0].ref.update({ adminSetClass: cls, adminSetLevel: level });
     } else {
-      // Create minimal subscriber entry if not present
-      await setDoc(doc(db, 'subscribers', phone), { phone, active: true, adminSetClass: cls, adminSetLevel: level });
+      await db.collection('subscribers').doc(phone).set({ phone, active: true, adminSetClass: cls, adminSetLevel: level });
     }
     hideSending();
     showToast(`✅ ${phone} ka class: ${cls}, level: ${level} lock ho gaya`);
@@ -1459,10 +1453,9 @@ window.adminUnlockStudent = async function(phone) {
   if (!confirm('Kya aap is student ka class/level lock hatana chahte hain?')) return;
   showSending('Unlock ho raha hai...');
   try {
-    const subQ = query(collection(db, 'subscribers'), where('phone','==', phone));
-    const subSnap = await getDocs(subQ);
+    const subSnap = await db.collection('subscribers').where('phone','==', phone).get();
     if (!subSnap.empty) {
-      await updateDoc(subSnap.docs[0].ref, { adminSetClass: null, adminSetLevel: null });
+      await subSnap.docs[0].ref.update({ adminSetClass: null, adminSetLevel: null });
     }
     hideSending();
     showToast(`🔓 ${phone} ka lock hata diya gaya`);
@@ -1481,7 +1474,7 @@ window.adminMarkDelivered = async function(phone) {
 
   showSending('Update ho raha hai...');
   try {
-    await setDoc(doc(db, 'worksheets', phone), {
+    await db.collection('worksheets').doc(phone).set({
       phone, childName: student ? student.childName : '—',
       cls: student ? student.cls : '—',
       level, delivered: true, deliveredDate: new Date().toISOString()
@@ -1500,8 +1493,7 @@ window.adminUndeliver = async function(phone) {
   if (!confirm('Delivery mark hatana chahte hain?')) return;
   showSending('Update ho raha hai...');
   try {
-    const student = allStudents.find(s => s.phone === phone);
-    await updateDoc(doc(db, 'worksheets', phone), { delivered: false, deliveredDate: null });
+    await db.collection('worksheets').doc(phone).update({ delivered: false, deliveredDate: null });
     hideSending();
     showToast('↩ Delivery mark hata diya gaya');
     await loadAllStudents();
