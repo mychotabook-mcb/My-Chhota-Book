@@ -11,6 +11,7 @@
     --primary: #D45C2A; --primary-light: #FAEEE7; --primary-dark: #A8401A;
     --accent: #2A7DD4; --accent-light: #E7F0FA;
     --green: #2A9D5C; --green-light: #E7F5EE;
+    --purple: #7B4FBF; --purple-light: #F0EBFA;
     --text: #1A1410; --text2: #6B5E52; --text3: #A09285;
     --border: rgba(100,80,60,0.12); --border2: rgba(100,80,60,0.22);
     --shadow: 0 2px 16px rgba(60,40,20,0.08);
@@ -60,6 +61,16 @@
   .existing-banner-info { font-size: 13px; color: var(--text2); margin-bottom: 10px; line-height: 1.6; }
   .existing-banner-btns { display: flex; gap: 8px; }
 
+  /* WORKSHEET DELIVERY BANNER */
+  .ws-banner { border-radius: var(--radius); padding: 1rem 1.1rem; margin-bottom: 1rem; display: none; }
+  .ws-banner.show { display: block; }
+  .ws-banner.delivered { background: var(--green-light); border: 1px solid var(--green); }
+  .ws-banner.pending { background: #FFF8E7; border: 1px solid #F5C842; }
+  .ws-banner-title { font-family: 'Baloo 2', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .ws-banner.delivered .ws-banner-title { color: var(--green); }
+  .ws-banner.pending .ws-banner-title { color: #B8860B; }
+  .ws-banner-info { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
   .step-indicator { display: flex; gap: 6px; margin-bottom: 1.5rem; padding: 0 0.25rem; }
   .step-dot { flex: 1; height: 4px; border-radius: 4px; background: var(--border2); transition: background 0.3s; }
   .step-dot.done { background: var(--green); }
@@ -74,17 +85,23 @@
   .edit-mode-badge { display: none; align-items: center; gap: 5px; background: var(--accent-light); border: 1px solid var(--accent); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
   .edit-mode-badge.show { display: inline-flex; }
 
+  /* ADMIN SET badge */
+  .admin-set-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--purple-light); border: 1px solid var(--purple); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: var(--purple); font-weight: 600; margin-left: 8px; }
+
   .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
   .field-label { font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
   .input-field { width: 100%; border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 15px; font-family: 'Noto Sans', sans-serif; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.2s; }
   .input-field:focus { border-color: var(--primary); }
   .input-field[readonly] { background: var(--surface2); color: var(--text2); cursor: not-allowed; }
+  .input-field[disabled] { background: var(--surface2); color: var(--text3); cursor: not-allowed; }
 
   .class-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .class-btn { border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 12px 8px; font-size: 15px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; background: var(--surface); color: var(--text); text-align: center; transition: all 0.15s; }
   .class-btn:hover { background: var(--primary-light); border-color: var(--primary); }
   .class-btn.selected { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); }
   .class-btn .class-age { font-size: 11px; color: var(--text3); font-family: 'Noto Sans', sans-serif; font-weight: 400; display: block; margin-top: 2px; }
+  .class-btn.locked { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+  .class-btn.locked.selected { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
 
   .level-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; }
   .lvl-btn { border: 1px solid var(--border); border-radius: 6px; padding: 7px 2px; font-size: 12px; font-weight: 500; cursor: pointer; background: var(--surface2); color: var(--text2); text-align: center; transition: all 0.12s; }
@@ -93,6 +110,8 @@
   .lvl-btn.completed { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 600; }
   .lvl-btn.completed::after { content: "✓"; font-size: 9px; display: block; line-height: 1; }
   .lvl-btn.current { background: var(--primary); border-color: var(--primary); color: white; font-weight: 700; box-shadow: 0 0 0 2px var(--primary-light); }
+  .lvl-btn.locked-lvl { background: var(--purple-light); border-color: var(--purple); color: var(--purple); font-weight: 700; cursor: not-allowed; pointer-events: none; }
+  .lvl-btn.locked-lvl::before { content: "🔒"; font-size: 7px; display: block; line-height: 1.2; }
 
   .page-batch-selector { display: flex; gap: 6px; }
   .batch-btn { border: 1px solid var(--border2); border-radius: 20px; padding: 5px 14px; font-size: 12px; cursor: pointer; background: var(--surface); color: var(--text2); }
@@ -135,6 +154,8 @@
   .btn-secondary:hover { background: var(--surface2); }
   .btn-accent { background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); padding: 10px 18px; font-size: 14px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; transition: background 0.15s; }
   .btn-accent:hover { background: #1e6ab8; }
+  .btn-purple { background: var(--purple); color: white; border: none; border-radius: var(--radius-sm); padding: 10px 18px; font-size: 14px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn-purple:hover { background: #5e3a9c; }
   .btn-row { display: flex; gap: 10px; margin-top: 1rem; }
   .btn-row .btn-primary { flex: 1; }
 
@@ -152,25 +173,83 @@
   #recaptcha-container { margin-top: 12px; }
   #loginScreen { display: block; }
   #mainApp { display: none; }
+
+  /* ===== ADMIN PANEL ===== */
+  #adminPanel { display: none; }
+  .admin-header { background: var(--purple); padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; }
+  .admin-header-title { font-family: 'Baloo 2', sans-serif; font-size: 17px; font-weight: 700; color: white; }
+  .admin-header-sub { font-size: 11px; color: rgba(255,255,255,0.75); }
+
+  .admin-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border2); margin-bottom: 1.25rem; }
+  .admin-tab { padding: 10px 18px; font-size: 14px; font-family: 'Baloo 2', sans-serif; font-weight: 600; cursor: pointer; color: var(--text2); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.15s; }
+  .admin-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+  .admin-tab-panel { display: none; }
+  .admin-tab-panel.active { display: block; }
+
+  .student-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 10px; box-shadow: var(--shadow); }
+  .student-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .student-name { font-family: 'Baloo 2', sans-serif; font-size: 16px; font-weight: 700; }
+  .student-phone { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .student-meta { font-size: 13px; color: var(--text2); margin-bottom: 10px; }
+  .ws-status-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .ws-status-chip.delivered { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
+  .ws-status-chip.pending { background: #FFF8E7; color: #B8860B; border: 1px solid #F5C842; }
+  .ws-status-chip.not-set { background: var(--surface2); color: var(--text3); border: 1px solid var(--border2); }
+
+  .admin-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .admin-select { border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 14px; font-family: 'Noto Sans', sans-serif; background: var(--surface); color: var(--text); outline: none; width: 100%; }
+  .admin-select:focus { border-color: var(--purple); }
+
+  .admin-action-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .btn-sm { padding: 7px 14px; font-size: 13px; border-radius: var(--radius-sm); border: none; cursor: pointer; font-family: 'Baloo 2', sans-serif; font-weight: 600; transition: all 0.15s; }
+  .btn-sm-green { background: var(--green); color: white; }
+  .btn-sm-green:hover { background: #1e7a44; }
+  .btn-sm-orange { background: var(--primary); color: white; }
+  .btn-sm-orange:hover { background: var(--primary-dark); }
+  .btn-sm-purple { background: var(--purple); color: white; }
+  .btn-sm-purple:hover { background: #5e3a9c; }
+  .btn-sm-gray { background: var(--surface2); color: var(--text2); border: 1px solid var(--border2); }
+  .btn-sm-gray:hover { background: var(--border2); }
+
+  .search-bar { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .search-bar .input-field { flex: 1; padding: 9px 12px; font-size: 14px; }
+
+  .admin-login-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; width: 100%; box-shadow: var(--shadow); max-width: 380px; margin: 0 auto; }
+  .admin-login-screen { display: flex; flex-direction: column; align-items: center; padding: 2rem 0; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+  .stat-card { background: var(--surface); border-radius: var(--radius); padding: 1rem; text-align: center; box-shadow: var(--shadow); border: 1px solid var(--border); }
+  .stat-val { font-family: 'Baloo 2', sans-serif; font-size: 28px; font-weight: 700; }
+  .stat-lbl { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+  .age-level-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .age-level-table th { background: var(--purple-light); color: var(--purple); padding: 8px 12px; text-align: left; font-weight: 600; }
+  .age-level-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .age-level-table tr:last-child td { border-bottom: none; }
+  .age-level-table input[type=number] { width: 65px; border: 1px solid var(--border2); border-radius: 6px; padding: 4px 8px; font-size: 13px; text-align: center; }
+
+  .empty-state { text-align: center; padding: 2rem; color: var(--text3); font-size: 14px; }
+
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1A1410; color: white; padding: 10px 20px; border-radius: 20px; font-size: 14px; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
 
-<div class="app-header">
-  <div class="app-header-logo">📋</div>
-  <div>
-    <div class="app-header-title">Worksheet Report</div>
-    <div class="app-header-sub">Galat activities report karein</div>
-  </div>
-  <div class="header-phone-badge" id="headerPhoneBadge">
-    📱 <span id="headerPhoneText"></span>
-    <span onclick="doLogout()" style="cursor:pointer;opacity:0.7;margin-left:6px;" title="Logout">✕</span>
-  </div>
-</div>
-<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:25%"></div></div>
-
 <!-- ==================== LOGIN SCREEN ==================== -->
 <div id="loginScreen">
+  <div class="app-header">
+    <div class="app-header-logo">📋</div>
+    <div>
+      <div class="app-header-title">Worksheet Report</div>
+      <div class="app-header-sub">Galat activities report karein</div>
+    </div>
+    <div style="margin-left:auto;">
+      <span onclick="showAdminLogin()" style="font-size:11px;color:rgba(255,255,255,0.6);cursor:pointer;padding:4px 8px;border-radius:4px;" title="Admin">⚙️</span>
+    </div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:25%"></div></div>
   <div class="container">
     <div class="login-screen">
       <div class="login-icon">🔐</div>
@@ -216,7 +295,26 @@
 
 <!-- ==================== MAIN APP ==================== -->
 <div id="mainApp">
+  <div class="app-header">
+    <div class="app-header-logo">📋</div>
+    <div>
+      <div class="app-header-title">Worksheet Report</div>
+      <div class="app-header-sub">Galat activities report karein</div>
+    </div>
+    <div class="header-phone-badge" id="headerPhoneBadge">
+      📱 <span id="headerPhoneText"></span>
+      <span onclick="doLogout()" style="cursor:pointer;opacity:0.7;margin-left:6px;" title="Logout">✕</span>
+    </div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar2" style="width:25%"></div></div>
+
   <div class="container">
+
+    <!-- WORKSHEET DELIVERY STATUS BANNER -->
+    <div class="ws-banner" id="wsBanner">
+      <div class="ws-banner-title" id="wsBannerTitle"></div>
+      <div class="ws-banner-info" id="wsBannerInfo"></div>
+    </div>
 
     <div class="existing-banner" id="existingBanner">
       <div class="existing-banner-title">✏️ Aapne pehle form bhara hua hai</div>
@@ -243,16 +341,32 @@
       <div class="card">
         <div class="field-label">Bachche ka naam</div>
         <input class="input-field" id="childName" placeholder="Naam likhein..." style="margin-bottom:14px;"/>
+
         <div class="field-label">Parent ka phone number</div>
         <input class="input-field" id="parentPhone" style="margin-bottom:14px;" type="tel" readonly/>
-        <div class="field-label">Class</div>
-        <div class="class-grid" style="margin-bottom:14px;">
-          <div class="class-btn" onclick="selectClass('Play',this)">Play<span class="class-age">2–3 saal</span></div>
-          <div class="class-btn" onclick="selectClass('Nursery',this)">Nursery<span class="class-age">3–4 saal</span></div>
-          <div class="class-btn" onclick="selectClass('Junior',this)">Junior<span class="class-age">4–5 saal</span></div>
-          <div class="class-btn" onclick="selectClass('Senior',this)">Senior<span class="class-age">5–7 saal</span></div>
+
+        <!-- Admin-set notice -->
+        <div id="adminSetNotice" style="display:none;margin-bottom:10px;">
+          <div style="background:var(--purple-light);border:1px solid var(--purple);border-radius:var(--radius-sm);padding:8px 12px;font-size:13px;color:var(--purple);">
+            🔒 <strong>Admin ne aapka class aur level fix kar diya hai.</strong> Aap inhe change nahi kar sakte.
+          </div>
         </div>
-        <div class="field-label">Level (1–48)</div>
+
+        <div class="field-label" style="display:flex;align-items:center;gap:6px;">
+          Class
+          <span id="classAdminBadge" class="admin-set-badge" style="display:none;">🔒 Admin set</span>
+        </div>
+        <div class="class-grid" style="margin-bottom:14px;" id="classGrid">
+          <div class="class-btn" onclick="selectClass('Play',this)" data-cls="Play">Play<span class="class-age">2–3 saal</span></div>
+          <div class="class-btn" onclick="selectClass('Nursery',this)" data-cls="Nursery">Nursery<span class="class-age">3–4 saal</span></div>
+          <div class="class-btn" onclick="selectClass('Junior',this)" data-cls="Junior">Junior<span class="class-age">4–5 saal</span></div>
+          <div class="class-btn" onclick="selectClass('Senior',this)" data-cls="Senior">Senior<span class="class-age">5–7 saal</span></div>
+        </div>
+
+        <div class="field-label" style="display:flex;align-items:center;gap:6px;">
+          Level (1–48)
+          <span id="levelAdminBadge" class="admin-set-badge" style="display:none;">🔒 Admin set</span>
+        </div>
         <div class="level-grid" id="levelGrid"></div>
         <div id="levelHint" style="display:none;font-size:13px;margin-top:8px;padding:8px 10px;background:var(--primary-light);border-radius:var(--radius-sm);"></div>
       </div>
@@ -321,19 +435,113 @@
   </div>
 </div>
 
+<!-- ==================== ADMIN PANEL ==================== -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <div class="app-header-logo" style="background:rgba(255,255,255,0.2);">⚙️</div>
+    <div>
+      <div class="admin-header-title">Admin Panel</div>
+      <div class="admin-header-sub">Students ka class, level aur worksheet manage karein</div>
+    </div>
+    <div style="margin-left:auto;">
+      <button onclick="adminLogout()" style="background:rgba(255,255,255,0.2);border:none;color:white;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:'Baloo 2',sans-serif;font-weight:600;">Logout</button>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:1.5rem;">
+
+    <!-- Stats -->
+    <div class="stats-grid" id="adminStats">
+      <div class="stat-card"><div class="stat-val" id="statTotal" style="color:var(--accent);">—</div><div class="stat-lbl">Total Students</div></div>
+      <div class="stat-card"><div class="stat-val" id="statDelivered" style="color:var(--green);">—</div><div class="stat-lbl">Worksheet Delivered</div></div>
+      <div class="stat-card"><div class="stat-val" id="statPending" style="color:#B8860B;">—</div><div class="stat-lbl">Worksheet Pending</div></div>
+      <div class="stat-card"><div class="stat-val" id="statAdminSet" style="color:var(--purple);">—</div><div class="stat-lbl">Admin-Set Levels</div></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="switchAdminTab('students',this)">👥 Students</div>
+      <div class="admin-tab" onclick="switchAdminTab('ageLevels',this)">🎯 Age-Level Rules</div>
+    </div>
+
+    <!-- Tab: Students -->
+    <div class="admin-tab-panel active" id="tabStudents">
+      <div class="search-bar">
+        <input class="input-field" id="adminSearch" placeholder="Naam ya phone se search..." oninput="renderStudentList()"/>
+        <select class="admin-select" id="filterDelivery" onchange="renderStudentList()" style="width:auto;min-width:130px;">
+          <option value="">Sab</option>
+          <option value="delivered">✅ Delivered</option>
+          <option value="pending">⏳ Pending</option>
+          <option value="not-set">➖ Not Set</option>
+        </select>
+      </div>
+      <div id="studentListWrap">
+        <div class="empty-state">Loading students...</div>
+      </div>
+    </div>
+
+    <!-- Tab: Age-Level Rules -->
+    <div class="admin-tab-panel" id="tabAgeLevels">
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:4px;">Age-wise Starting Level</div>
+        <div class="section-sub" style="margin-bottom:1rem;">Jab pehli baar koi bachcha aata hai, uski class ke hisaab se starting level automatically set hogi.</div>
+        <table class="age-level-table">
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Age</th>
+              <th>Starting Level</th>
+              <th>Max Level</th>
+            </tr>
+          </thead>
+          <tbody id="ageLevelTableBody"></tbody>
+        </table>
+        <button class="btn-purple" style="margin-top:1rem;width:100%;" onclick="saveAgeLevelRules()">💾 Rules Save karein</button>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <div class="field-label" style="margin-bottom:8px;">Default Age-Level Rules Reset karein</div>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:10px;">Yeh aapke current rules ko default values par reset kar dega.</p>
+        <button class="btn-sm btn-sm-gray" onclick="resetAgeLevelDefaults()">🔄 Default pe wapas jaiye</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== ADMIN LOGIN MODAL ==================== -->
+<div id="adminLoginOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center;">
+  <div class="container" style="padding:1rem;">
+    <div class="admin-login-screen">
+      <div class="login-icon" style="background:var(--purple-light);font-size:28px;">⚙️</div>
+      <div class="login-title">Admin Login</div>
+      <div class="login-sub">Admin access ke liye password dalein</div>
+      <div class="admin-login-card">
+        <div class="field-label">Admin Password</div>
+        <input class="input-field" id="adminPasswordInput" type="password" placeholder="Password..." onkeydown="if(event.key==='Enter') verifyAdminPassword()" style="margin-bottom:10px;"/>
+        <div class="error-box" id="adminPassError"></div>
+        <button class="btn-purple" style="margin-top:10px;width:100%;border-radius:var(--radius-sm);padding:13px;" onclick="verifyAdminPassword()">🔓 Login karein</button>
+        <button class="btn-secondary" style="margin-top:8px;width:100%;" onclick="hideAdminLogin()">Wapas jaiye</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="sending-overlay" id="sendingOverlay">
   <div class="spinner"></div>
   <div class="sending-text" id="sendingText">Verify ho raha hai...</div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <!-- ==================== FIREBASE ==================== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-import { getFirestore, collection, query, where, getDocs, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs, doc, setDoc, getDoc, updateDoc, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 // ============================================================
-// AAPKI FIREBASE CONFIG
+// FIREBASE CONFIG
 // ============================================================
 const firebaseConfig = {
   apiKey: "AIzaSyDJqGfiz4vrJm0MlWBoBzxqN7wylATBgqc",
@@ -345,8 +553,11 @@ const firebaseConfig = {
 };
 
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbwgwcDFfFSiDB2w9HYJa1UJdmUjON1BhG2uaZIHpmmoudKjkC7YJ7Co_7awBDpiZO_vcw/exec";
-// ============================================================
 
+// !! ADMIN PASSWORD — yahan apna password set karein !!
+const ADMIN_PASSWORD = "admin@1234";
+
+// ============================================================
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -354,11 +565,23 @@ const db = getFirestore(app);
 let confirmationResult = null;
 let S = {
   name:'', phone:'', cls:'', level:0, completedLevels:[],
-  totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false
+  totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false,
+  adminLockedClass: false, adminLockedLevel: false
 };
 
+// Default age-level rules
+const DEFAULT_AGE_RULES = [
+  { cls: 'Play',    ageRange: '2–3 saal', startLevel: 1,  maxLevel: 12 },
+  { cls: 'Nursery', ageRange: '3–4 saal', startLevel: 13, maxLevel: 24 },
+  { cls: 'Junior',  ageRange: '4–5 saal', startLevel: 25, maxLevel: 36 },
+  { cls: 'Senior',  ageRange: '5–7 saal', startLevel: 37, maxLevel: 48 },
+];
+
+let ageLevelRules = JSON.parse(JSON.stringify(DEFAULT_AGE_RULES));
+let allStudents = [];
+
 // ============================================================
-// AUTH STATE — Auto login agar pehle se logged in ho
+// AUTH STATE
 // ============================================================
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -369,13 +592,12 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 // ============================================================
-// RECAPTCHA SETUP
+// RECAPTCHA
 // ============================================================
 function setupRecaptcha() {
   if (window.recaptchaVerifier) return;
   window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-    size: 'invisible',
-    callback: () => {}
+    size: 'invisible', callback: () => {}
   });
 }
 
@@ -397,8 +619,6 @@ window.sendOtp = async function() {
   }
 
   const phoneE164 = '+91' + digits;
-
-  // Check if subscribed in Firestore
   showSending('Check ho raha hai...');
   try {
     const q = query(collection(db, 'subscribers'), where('phone','==', digits), where('active','==', true));
@@ -416,7 +636,6 @@ window.sendOtp = async function() {
     return;
   }
 
-  // Send OTP via Firebase
   showSending('OTP bheja ja raha hai...');
   try {
     setupRecaptcha();
@@ -454,15 +673,11 @@ window.otpKey = function(idx, e) {
 window.verifyOtp = async function() {
   if (!confirmationResult) { alert('Pehle OTP mangaein'); return; }
   const code = ['d0','d1','d2','d3','d4','d5'].map(id => document.getElementById(id).value).join('');
-  if (code.length < 6) {
-    showOtpError('Poora 6 digit OTP dalein.');
-    return;
-  }
+  if (code.length < 6) { showOtpError('Poora 6 digit OTP dalein.'); return; }
   showSending('Verify ho raha hai...');
   try {
     await confirmationResult.confirm(code);
     hideSending();
-    // onAuthStateChanged will handle the rest
   } catch(e) {
     hideSending();
     showOtpError('Galat OTP. Dobara check karein.');
@@ -518,6 +733,39 @@ async function onLoginSuccess(phone) {
   document.getElementById('headerPhoneText').textContent = phone;
   document.getElementById('headerPhoneBadge').classList.add('show');
 
+  // Load age-level rules from Firestore
+  await loadAgeLevelRules();
+
+  // Check subscriber record for admin-set class/level
+  let subscriberData = null;
+  try {
+    const subQ = query(collection(db, 'subscribers'), where('phone','==', phone), where('active','==', true));
+    const subSnap = await getDocs(subQ);
+    if (!subSnap.empty) subscriberData = subSnap.docs[0].data();
+  } catch(e) {}
+
+  // Check existing worksheet delivery status
+  try {
+    const wsRef = doc(db, 'worksheets', phone);
+    const wsSnap = await getDoc(wsRef);
+    if (wsSnap.exists()) {
+      const wsData = wsSnap.data();
+      const banner = document.getElementById('wsBanner');
+      const title = document.getElementById('wsBannerTitle');
+      const info = document.getElementById('wsBannerInfo');
+      banner.classList.add('show');
+      if (wsData.delivered) {
+        banner.classList.add('delivered');
+        title.textContent = '✅ Aapki worksheet deliver ho gayi hai!';
+        info.textContent = `Level ${wsData.level} ki worksheet ${wsData.deliveredDate ? new Date(wsData.deliveredDate).toLocaleDateString('hi-IN') : 'recently'} ko di gayi thi.`;
+      } else {
+        banner.classList.add('pending');
+        title.textContent = '⏳ Aapki worksheet taiyar ho rahi hai';
+        info.textContent = `Level ${wsData.level || '—'} ki worksheet jaldi deliver ki jaayegi.`;
+      }
+    }
+  } catch(e) {}
+
   // Check existing entry in Firestore
   try {
     const entryRef = doc(db, 'entries', phone);
@@ -529,26 +777,112 @@ async function onLoginSuccess(phone) {
       banner.classList.add('show');
       const dt = data.timestamp ? new Date(data.timestamp).toLocaleDateString('hi-IN') : '';
       info.textContent = `${data.childName} — ${data.cls} Class, Level ${data.level} — ${dt}`;
-      // Store for later use
       window._existingEntry = data;
     }
-  } catch(e) { console.log('Entry check error:', e); }
+  } catch(e) {}
 
-  // Load level from localStorage
-  const stored = getStoredData(phone, null);
-  if (stored && stored.level) {
-    S.level = stored.level;
-    S.completedLevels = stored.completed || [];
-    buildLevelGrid(S.level, S.completedLevels);
+  // Apply admin-set class/level if present in subscriber record
+  S.adminLockedClass = false;
+  S.adminLockedLevel = false;
+
+  if (subscriberData && subscriberData.adminSetClass) {
+    S.cls = subscriberData.adminSetClass;
+    S.adminLockedClass = true;
+    // Pre-select class
+    document.querySelectorAll('.class-btn').forEach(b => {
+      b.classList.remove('selected');
+      b.classList.add('locked');
+      if (b.dataset.cls === S.cls) { b.classList.add('selected'); }
+    });
+    document.getElementById('classAdminBadge').style.display = 'inline-flex';
+    document.getElementById('adminSetNotice').style.display = 'block';
+  }
+
+  if (subscriberData && subscriberData.adminSetLevel) {
+    S.level = subscriberData.adminSetLevel;
+    S.adminLockedLevel = true;
+    S.completedLevels = subscriberData.completedLevels || [];
+    buildLevelGrid(S.level, S.completedLevels, true); // locked=true
+    document.getElementById('levelAdminBadge').style.display = 'inline-flex';
+    document.getElementById('adminSetNotice').style.display = 'block';
   } else {
-    buildLevelGrid(0, false);
+    // Auto-set level based on age/class rule if first time
+    const stored = getStoredData(phone, S.cls || null);
+    if (stored && stored.level) {
+      S.level = stored.level;
+      S.completedLevels = stored.completed || [];
+      buildLevelGrid(S.level, S.completedLevels, false);
+    } else {
+      // Apply age-level rule for the class
+      applyAgeLevelRule(S.cls);
+      buildLevelGrid(S.level, [], false);
+    }
   }
 
   goStep(1);
 }
 
+// Apply age-level rule: auto-set starting level from rules
+function applyAgeLevelRule(cls) {
+  if (!cls) return;
+  const rule = ageLevelRules.find(r => r.cls === cls);
+  if (rule && !S.level) {
+    S.level = rule.startLevel;
+  }
+}
+
 // ============================================================
-// LOAD EXISTING ENTRY FOR EDIT
+// LOAD/SAVE AGE-LEVEL RULES
+// ============================================================
+async function loadAgeLevelRules() {
+  try {
+    const rulesRef = doc(db, 'config', 'ageLevelRules');
+    const snap = await getDoc(rulesRef);
+    if (snap.exists() && snap.data().rules) {
+      ageLevelRules = snap.data().rules;
+    }
+  } catch(e) {}
+  renderAgeLevelTable();
+}
+
+window.saveAgeLevelRules = async function() {
+  // Read from table inputs
+  const rows = document.querySelectorAll('#ageLevelTableBody tr');
+  rows.forEach((row, i) => {
+    const inputs = row.querySelectorAll('input[type=number]');
+    if (inputs[0]) ageLevelRules[i].startLevel = parseInt(inputs[0].value) || ageLevelRules[i].startLevel;
+    if (inputs[1]) ageLevelRules[i].maxLevel = parseInt(inputs[1].value) || ageLevelRules[i].maxLevel;
+  });
+  try {
+    await setDoc(doc(db, 'config', 'ageLevelRules'), { rules: ageLevelRules });
+    showToast('✅ Rules save ho gaye!');
+  } catch(e) {
+    showToast('❌ Save mein error. Dobara try karein.');
+  }
+};
+
+window.resetAgeLevelDefaults = function() {
+  if (!confirm('Kya aap default rules par wapas jaana chahte hain?')) return;
+  ageLevelRules = JSON.parse(JSON.stringify(DEFAULT_AGE_RULES));
+  renderAgeLevelTable();
+  showToast('🔄 Default rules restore ho gaye');
+};
+
+function renderAgeLevelTable() {
+  const tbody = document.getElementById('ageLevelTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = ageLevelRules.map((r, i) => `
+    <tr>
+      <td><strong>${r.cls}</strong></td>
+      <td style="color:var(--text3);">${r.ageRange}</td>
+      <td><input type="number" min="1" max="48" value="${r.startLevel}" id="startLvl_${i}"/></td>
+      <td><input type="number" min="1" max="48" value="${r.maxLevel}" id="maxLvl_${i}"/></td>
+    </tr>
+  `).join('');
+}
+
+// ============================================================
+// LOAD EXISTING ENTRY
 // ============================================================
 window.loadExistingEntry = function() {
   const data = window._existingEntry;
@@ -565,9 +899,9 @@ window.loadExistingEntry = function() {
   document.getElementById('childName').value = S.name;
   document.getElementById('editModeBadge').classList.add('show');
   document.querySelectorAll('.class-btn').forEach(b => {
-    b.classList.toggle('selected', b.textContent.trim().startsWith(S.cls));
+    b.classList.toggle('selected', b.dataset.cls === S.cls);
   });
-  buildLevelGrid(S.level, S.completedLevels);
+  buildLevelGrid(S.level, S.completedLevels, S.adminLockedLevel);
   document.getElementById('existingBanner').classList.remove('show');
   document.getElementById('step2Info').textContent = `${S.name} — ${S.cls} Class, Level ${S.level} — Total ${S.totalPages} pages`;
   renderPages();
@@ -579,9 +913,9 @@ window.startFresh = function() {
   document.getElementById('editModeBadge').classList.remove('show');
   document.getElementById('existingBanner').classList.remove('show');
   document.getElementById('childName').value = '';
-  S.name=''; S.cls=''; S.level=0;
-  document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
-  buildLevelGrid(0, false);
+  S.name=''; if (!S.adminLockedClass) S.cls=''; if (!S.adminLockedLevel) S.level=0;
+  if (!S.adminLockedClass) document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
+  buildLevelGrid(S.adminLockedLevel ? S.level : 0, [], S.adminLockedLevel);
   goStep(1);
 };
 
@@ -590,9 +924,9 @@ window.goEditMode = function() {
   document.getElementById('editModeBadge').classList.add('show');
   document.getElementById('childName').value = S.name;
   document.querySelectorAll('.class-btn').forEach(b => {
-    b.classList.toggle('selected', b.textContent.trim().startsWith(S.cls));
+    b.classList.toggle('selected', b.dataset.cls === S.cls);
   });
-  buildLevelGrid(S.level, S.completedLevels);
+  buildLevelGrid(S.level, S.completedLevels, S.adminLockedLevel);
   renderPages();
   goStep(2);
 };
@@ -604,7 +938,7 @@ window.doLogout = async function() {
   if (!confirm('Logout karna chahte hain?')) return;
   clearInterval(timerInterval);
   await signOut(auth);
-  S = { name:'', phone:'', cls:'', level:0, completedLevels:[], totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false };
+  S = { name:'', phone:'', cls:'', level:0, completedLevels:[], totalPages:0, pages:[], batchSize:10, pageStart:0, isEditMode:false, adminLockedClass:false, adminLockedLevel:false };
   window._existingEntry = null;
   document.getElementById('mainApp').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'block';
@@ -618,6 +952,10 @@ window.doLogout = async function() {
   ['d0','d1','d2','d3','d4','d5'].forEach(id => document.getElementById(id).value='');
   confirmationResult = null;
   window.recaptchaVerifier = null;
+  document.getElementById('wsBanner').classList.remove('show','delivered','pending');
+  document.getElementById('adminSetNotice').style.display = 'none';
+  document.getElementById('classAdminBadge').style.display = 'none';
+  document.getElementById('levelAdminBadge').style.display = 'none';
 };
 
 // ============================================================
@@ -638,31 +976,28 @@ window.submitData = async function() {
   }).join(' | ');
 
   const now = new Date().toISOString();
-  const leveledUp = (score === 100 && S.level < 48);
+  const leveledUp = (score === 100 && S.level < 48 && !S.adminLockedLevel);
   if (leveledUp) S.level = S.level + 1;
 
   const entryData = {
-    timestamp: now,
-    childName: S.name,
-    parentPhone: S.phone,
-    cls: S.cls,
-    level: leveledUp ? S.level - 1 : S.level,
-    completedLevels: S.completedLevels,
-    totalPages: S.totalPages,
-    pagesState: S.pages,
-    score: score,
-    wrongActivities: totalWrong,
-    wrongDetail: wrongDetail,
-    isEdit: S.isEditMode
+    timestamp: now, childName: S.name, parentPhone: S.phone, cls: S.cls,
+    level: leveledUp ? S.level - 1 : S.level, completedLevels: S.completedLevels,
+    totalPages: S.totalPages, pagesState: S.pages, score: score,
+    wrongActivities: totalWrong, wrongDetail: wrongDetail, isEdit: S.isEditMode
   };
 
-  // Save to Firestore (upsert — ek hi entry per phone)
-  try {
-    await setDoc(doc(db, 'entries', S.phone), entryData);
-    window._existingEntry = entryData;
-  } catch(e) { console.log('Firestore save error:', e); }
+  try { await setDoc(doc(db, 'entries', S.phone), entryData); window._existingEntry = entryData; } catch(e) {}
 
-  // Send to Google Sheet
+  // Mark worksheet as pending delivery for next level
+  if (leveledUp) {
+    try {
+      await setDoc(doc(db, 'worksheets', S.phone), {
+        phone: S.phone, childName: S.name, cls: S.cls,
+        level: S.level, delivered: false, requestedAt: now
+      });
+    } catch(e) {}
+  }
+
   try {
     fetch(SHEET_URL, {
       method: 'POST', mode: 'no-cors',
@@ -690,6 +1025,7 @@ function showSuccess(totalWrong, score, wrongPgCount, leveledUp) {
         <div style="font-size:28px;">🎉</div>
         <div style="font-size:18px;font-weight:700;color:white;font-family:'Baloo 2',sans-serif;">Level Up!</div>
         <div style="font-size:14px;color:rgba(255,255,255,0.9);margin-top:4px;">Level ${prevLevel} → <strong>Level ${S.level}</strong></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:4px;">⏳ Naye level ki worksheet jaldi milegi</div>
        </div>` : '';
   const editNote = S.isEditMode
     ? '<div style="margin-top:8px;font-size:12px;color:var(--accent);padding:6px 10px;background:var(--accent-light);border-radius:var(--radius-sm);">✏️ Purana form update kiya gaya</div>' : '';
@@ -719,36 +1055,49 @@ function showSuccess(totalWrong, score, wrongPgCount, leveledUp) {
 // ============================================================
 // FORM HELPERS
 // ============================================================
-function buildLevelGrid(currentLevel, completedArr) {
+function buildLevelGrid(currentLevel, completedArr, locked) {
   const completed = Array.isArray(completedArr) ? completedArr : [];
   const g = document.getElementById('levelGrid');
+  if (!g) return;
   g.innerHTML = '';
   for (let i = 1; i <= 48; i++) {
     const b = document.createElement('div');
     b.textContent = i;
-    if (completed.includes(i)) {
-      b.className = 'lvl-btn completed';
-    } else if (currentLevel && i === currentLevel) {
-      b.className = 'lvl-btn current selected';
-      S.level = i;
+    if (locked) {
+      if (i === currentLevel) {
+        b.className = 'lvl-btn locked-lvl selected';
+        S.level = i;
+      } else if (completed.includes(i)) {
+        b.className = 'lvl-btn completed';
+      } else {
+        b.className = 'lvl-btn locked-lvl';
+      }
     } else {
-      b.className = 'lvl-btn';
+      if (completed.includes(i)) {
+        b.className = 'lvl-btn completed';
+      } else if (currentLevel && i === currentLevel) {
+        b.className = 'lvl-btn current selected';
+        S.level = i;
+      } else {
+        b.className = 'lvl-btn';
+      }
+      b.onclick = () => {
+        S.level = i;
+        document.querySelectorAll('.lvl-btn').forEach(x => {
+          if (!x.classList.contains('completed')) x.className = 'lvl-btn';
+          else x.classList.remove('selected','current');
+        });
+        b.classList.add('selected');
+        document.getElementById('levelGrid').style.outline='';
+        const h=document.getElementById('levelHint'); if(h) h.style.display='none';
+      };
     }
-    b.onclick = () => {
-      S.level = i;
-      document.querySelectorAll('.lvl-btn').forEach(x => {
-        if (!x.classList.contains('completed')) x.className = 'lvl-btn';
-        else x.classList.remove('selected','current');
-      });
-      b.classList.add('selected');
-      document.getElementById('levelGrid').style.outline='';
-      const h=document.getElementById('levelHint'); if(h) h.style.display='none';
-    };
     g.appendChild(b);
   }
 }
 
 window.selectClass = function(cls, el) {
+  if (S.adminLockedClass) return; // locked by admin
   S.cls = cls;
   document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
@@ -756,7 +1105,12 @@ window.selectClass = function(cls, el) {
   if (stored && stored.level && !S.isEditMode) {
     S.level = stored.level;
     S.completedLevels = stored.completed || [];
-    buildLevelGrid(S.level, S.completedLevels);
+    buildLevelGrid(S.level, S.completedLevels, false);
+  } else if (!S.adminLockedLevel) {
+    // Apply age-level rule
+    S.level = 0;
+    applyAgeLevelRule(cls);
+    buildLevelGrid(S.level, [], false);
   }
 };
 
@@ -868,7 +1222,7 @@ window.goStep3 = function() {
 window.goStep = function(n) {
   document.querySelectorAll('.step').forEach((s,i) => s.classList.toggle('active', i+1===n));
   const pcts = ['25%','50%','75%','100%'];
-  document.getElementById('progressBar').style.width = pcts[n-1];
+  document.getElementById('progressBar2').style.width = pcts[n-1];
   ['dot1','dot2','dot3','dot4'].forEach((id,i) => {
     document.getElementById(id).className = 'step-dot' + (i+1<n?' done':i+1===n?' active':'');
   });
@@ -885,11 +1239,8 @@ function getStoredData(phone, cls) {
     return raw ? JSON.parse(raw) : null;
   } catch(e) { return null; }
 }
-
 function saveStoredData(phone, cls, level, completed) {
-  try {
-    localStorage.setItem('ws_'+phone+'_'+cls, JSON.stringify({level, completed}));
-  } catch(e) {}
+  try { localStorage.setItem('ws_'+phone+'_'+cls, JSON.stringify({level, completed})); } catch(e) {}
 }
 
 // ============================================================
@@ -902,6 +1253,274 @@ function showSending(msg) {
 function hideSending() {
   document.getElementById('sendingOverlay').classList.remove('show');
 }
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ============================================================
+// ADMIN: LOGIN / LOGOUT
+// ============================================================
+window.showAdminLogin = function() {
+  document.getElementById('adminLoginOverlay').style.display = 'flex';
+  setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
+};
+window.hideAdminLogin = function() {
+  document.getElementById('adminLoginOverlay').style.display = 'none';
+  document.getElementById('adminPasswordInput').value = '';
+  document.getElementById('adminPassError').classList.remove('show');
+};
+window.verifyAdminPassword = async function() {
+  const pwd = document.getElementById('adminPasswordInput').value;
+  if (pwd === ADMIN_PASSWORD) {
+    hideAdminLogin();
+    await enterAdminPanel();
+  } else {
+    const err = document.getElementById('adminPassError');
+    err.textContent = '❌ Galat password. Dobara try karein.';
+    err.classList.add('show');
+    document.getElementById('adminPasswordInput').value = '';
+  }
+};
+window.adminLogout = function() {
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'block';
+};
+
+async function enterAdminPanel() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  await loadAgeLevelRules();
+  await loadAllStudents();
+}
+
+// ============================================================
+// ADMIN: LOAD ALL STUDENTS
+// ============================================================
+async function loadAllStudents() {
+  showSending('Students load ho rahe hain...');
+  try {
+    const entriesSnap = await getDocs(collection(db, 'entries'));
+    const wsSnap = await getDocs(collection(db, 'worksheets'));
+    const subSnap = await getDocs(collection(db, 'subscribers'));
+
+    const wsMap = {};
+    wsSnap.forEach(d => { wsMap[d.id] = d.data(); });
+    const subMap = {};
+    subSnap.forEach(d => { subMap[d.data().phone] = d.data(); });
+
+    allStudents = [];
+    entriesSnap.forEach(d => {
+      const e = d.data();
+      const ws = wsMap[d.id] || null;
+      const sub = subMap[d.id] || null;
+      allStudents.push({
+        phone: d.id,
+        childName: e.childName || '—',
+        cls: e.cls || '—',
+        level: e.level || 0,
+        score: e.score || 0,
+        timestamp: e.timestamp || '',
+        ws: ws,
+        adminSetClass: sub ? sub.adminSetClass : null,
+        adminSetLevel: sub ? sub.adminSetLevel : null,
+        completedLevels: e.completedLevels || []
+      });
+    });
+    allStudents.sort((a,b) => (b.timestamp > a.timestamp ? 1 : -1));
+  } catch(e) { console.log(e); }
+  hideSending();
+
+  // Update stats
+  document.getElementById('statTotal').textContent = allStudents.length;
+  const delivered = allStudents.filter(s => s.ws && s.ws.delivered).length;
+  const pending = allStudents.filter(s => s.ws && !s.ws.delivered).length;
+  const adminSet = allStudents.filter(s => s.adminSetLevel || s.adminSetClass).length;
+  document.getElementById('statDelivered').textContent = delivered;
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statAdminSet').textContent = adminSet;
+
+  renderStudentList();
+}
+
+// ============================================================
+// ADMIN: RENDER STUDENT LIST
+// ============================================================
+window.renderStudentList = function() {
+  const search = (document.getElementById('adminSearch').value || '').toLowerCase();
+  const filterDel = document.getElementById('filterDelivery').value;
+  let students = allStudents.filter(s => {
+    const matchSearch = !search || s.childName.toLowerCase().includes(search) || s.phone.includes(search);
+    let matchFilter = true;
+    if (filterDel === 'delivered') matchFilter = s.ws && s.ws.delivered;
+    else if (filterDel === 'pending') matchFilter = s.ws && !s.ws.delivered;
+    else if (filterDel === 'not-set') matchFilter = !s.ws;
+    return matchSearch && matchFilter;
+  });
+
+  const wrap = document.getElementById('studentListWrap');
+  if (students.length === 0) {
+    wrap.innerHTML = '<div class="empty-state">Koi student nahi mila</div>';
+    return;
+  }
+
+  wrap.innerHTML = students.map(s => {
+    const wsChip = s.ws
+      ? (s.ws.delivered
+          ? `<span class="ws-status-chip delivered">✅ Delivered</span>`
+          : `<span class="ws-status-chip pending">⏳ Pending</span>`)
+      : `<span class="ws-status-chip not-set">➖ Not Set</span>`;
+    const adminTag = (s.adminSetClass || s.adminSetLevel)
+      ? `<span style="font-size:11px;background:var(--purple-light);color:var(--purple);border-radius:10px;padding:2px 8px;font-weight:600;margin-left:6px;">🔒 Admin set</span>` : '';
+
+    const clsOptions = ['Play','Nursery','Junior','Senior'].map(c =>
+      `<option value="${c}" ${s.adminSetClass===c?'selected':''}>${c}</option>`
+    ).join('');
+
+    const levelOptions = Array.from({length:48},(_,i)=>i+1).map(l =>
+      `<option value="${l}" ${s.adminSetLevel===l?'selected':''}>${l}</option>`
+    ).join('');
+
+    const deliverBtnLabel = (s.ws && !s.ws.delivered) ? '✅ Mark Delivered' : '📦 Set Worksheet';
+    const undeliverBtn = (s.ws && s.ws.delivered)
+      ? `<button class="btn-sm btn-sm-gray" onclick="adminUndeliver('${s.phone}')">↩ Undo</button>` : '';
+
+    return `
+    <div class="student-card" id="sc_${s.phone}">
+      <div class="student-card-top">
+        <div>
+          <div class="student-name">${s.childName} ${adminTag}</div>
+          <div class="student-phone">📱 ${s.phone}</div>
+        </div>
+        <div>${wsChip}</div>
+      </div>
+      <div class="student-meta">
+        ${s.cls} Class · Level ${s.level} · Score ${s.score}% · ${s.timestamp ? new Date(s.timestamp).toLocaleDateString('hi-IN') : ''}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div>
+          <div class="field-label" style="margin-bottom:4px;">Class Fix karein</div>
+          <select class="admin-select" id="clsSel_${s.phone}">${clsOptions}</select>
+        </div>
+        <div>
+          <div class="field-label" style="margin-bottom:4px;">Level Fix karein</div>
+          <select class="admin-select" id="lvlSel_${s.phone}">${levelOptions}</select>
+        </div>
+      </div>
+      <div class="admin-action-row">
+        <button class="btn-sm btn-sm-purple" onclick="adminSetClassLevel('${s.phone}')">🔒 Class/Level Lock karein</button>
+        <button class="btn-sm btn-sm-orange" onclick="adminUnlockStudent('${s.phone}')">🔓 Unlock karein</button>
+        <button class="btn-sm btn-sm-green" onclick="adminMarkDelivered('${s.phone}')">${deliverBtnLabel}</button>
+        ${undeliverBtn}
+      </div>
+    </div>`;
+  }).join('');
+};
+
+// ============================================================
+// ADMIN ACTIONS
+// ============================================================
+
+// Lock class & level for a student
+window.adminSetClassLevel = async function(phone) {
+  const cls = document.getElementById('clsSel_'+phone).value;
+  const level = parseInt(document.getElementById('lvlSel_'+phone).value);
+  if (!cls || !level) { showToast('Class aur Level dono chunein'); return; }
+
+  showSending('Setting ho raha hai...');
+  try {
+    // Find subscriber doc and update it
+    const subQ = query(collection(db, 'subscribers'), where('phone','==', phone));
+    const subSnap = await getDocs(subQ);
+    if (!subSnap.empty) {
+      await updateDoc(subSnap.docs[0].ref, { adminSetClass: cls, adminSetLevel: level });
+    } else {
+      // Create minimal subscriber entry if not present
+      await setDoc(doc(db, 'subscribers', phone), { phone, active: true, adminSetClass: cls, adminSetLevel: level });
+    }
+    hideSending();
+    showToast(`✅ ${phone} ka class: ${cls}, level: ${level} lock ho gaya`);
+    await loadAllStudents();
+  } catch(e) {
+    hideSending();
+    showToast('❌ Error: ' + e.message);
+  }
+};
+
+// Unlock class & level
+window.adminUnlockStudent = async function(phone) {
+  if (!confirm('Kya aap is student ka class/level lock hatana chahte hain?')) return;
+  showSending('Unlock ho raha hai...');
+  try {
+    const subQ = query(collection(db, 'subscribers'), where('phone','==', phone));
+    const subSnap = await getDocs(subQ);
+    if (!subSnap.empty) {
+      await updateDoc(subSnap.docs[0].ref, { adminSetClass: null, adminSetLevel: null });
+    }
+    hideSending();
+    showToast(`🔓 ${phone} ka lock hata diya gaya`);
+    await loadAllStudents();
+  } catch(e) {
+    hideSending();
+    showToast('❌ Error: ' + e.message);
+  }
+};
+
+// Mark worksheet as delivered
+window.adminMarkDelivered = async function(phone) {
+  const student = allStudents.find(s => s.phone === phone);
+  const lvlSel = document.getElementById('lvlSel_'+phone);
+  const level = lvlSel ? parseInt(lvlSel.value) : (student ? student.level : 0);
+
+  showSending('Update ho raha hai...');
+  try {
+    await setDoc(doc(db, 'worksheets', phone), {
+      phone, childName: student ? student.childName : '—',
+      cls: student ? student.cls : '—',
+      level, delivered: true, deliveredDate: new Date().toISOString()
+    });
+    hideSending();
+    showToast(`✅ Worksheet delivered mark ho gaya — Level ${level}`);
+    await loadAllStudents();
+  } catch(e) {
+    hideSending();
+    showToast('❌ Error: ' + e.message);
+  }
+};
+
+// Undo delivery
+window.adminUndeliver = async function(phone) {
+  if (!confirm('Delivery mark hatana chahte hain?')) return;
+  showSending('Update ho raha hai...');
+  try {
+    const student = allStudents.find(s => s.phone === phone);
+    await updateDoc(doc(db, 'worksheets', phone), { delivered: false, deliveredDate: null });
+    hideSending();
+    showToast('↩ Delivery mark hata diya gaya');
+    await loadAllStudents();
+  } catch(e) {
+    hideSending();
+    showToast('❌ Error: ' + e.message);
+  }
+};
+
+// ============================================================
+// ADMIN TABS
+// ============================================================
+window.switchAdminTab = function(tabId, el) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab' + tabId.charAt(0).toUpperCase() + tabId.slice(1)).classList.add('active');
+  if (tabId === 'ageLevels') renderAgeLevelTable();
+};
 
 </script>
 </body>
